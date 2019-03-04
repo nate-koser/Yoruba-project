@@ -8,13 +8,13 @@ library(RColorBrewer)
 #data + data transformations----------------------------------------------------------------
 
 #load data
-datana <- read.csv("G:/My Drive/work/yorubaexp/BRG/MM02/MM02/MM02_tgrids.csv") 
+datana <- read.csv("G:/My Drive/work/yorubaexp/BRG/MM02/MM02/MM02_tgrids.csv")
+datana <- read_csv("MM02_tgrids.csv")
+
 
 #get rid of unnecessary columns
 datana <- datana %>%
-select(., - target_sylonsvoice) %>%
-select(., - error) %>%
-select(., - F0_error)  
+select(., -target_sylonsvoice, -error, -F0_error)
 
 #get rid of extreme outliers
 datana <- datana %>%
@@ -27,41 +27,49 @@ datana <- datana %>%
   filter(., X != "242") %>%
   filter(., X != "243") %>%
   filter(., X != "246") %>%
-  filter(., X != "255") 
+  filter(., X != "255")
+
+# COMMENT JVC:
+# I would try to find a more general strategy for removing outliers
+# and make sure to report it. As is, this doesn't run on my system.
+# What does X represent? It is not a column in the dataframe when I
+# load it. If you are refering to rownumbers consider using slice()
+
+
 
 #create avg spectilt column
 datana <- datana %>%
-  mutate(avg_spec = (specTilt_1 + specTilt_2 + specTilt_3 + specTilt_4) / 4) 
+  mutate(avg_spec = (specTilt_1 + specTilt_2 + specTilt_3 + specTilt_4) / 4)
 
 #avg hnr column
 datana <- datana %>%
-  mutate(avg_hnr = (hnr_1 + hnr_2 + hnr_3 + hnr_4) / 4) 
+  mutate(avg_hnr = (hnr_1 + hnr_2 + hnr_3 + hnr_4) / 4)
 
 
 
 #avg f3 column
 datana <- datana %>%
-  mutate(avg_f3 = (f3_1 + f3_2 + f3_3 + f3_4) / 4) 
+  mutate(avg_f3 = (f3_1 + f3_2 + f3_3 + f3_4) / 4)
 
 #avg f2 column
 datana <- datana %>%
-  mutate(avg_f2 = (f2_1 + f2_2 + f2_3 + f2_4) / 4)   
+  mutate(avg_f2 = (f2_1 + f2_2 + f2_3 + f2_4) / 4)
 
 #avg f1 column
 datana <- datana %>%
-  mutate(avg_f1 = (f1_1 + f1_2 + f1_3 + f1_4) / 4) 
+  mutate(avg_f1 = (f1_1 + f1_2 + f1_3 + f1_4) / 4)
 
 #avg f0 column
 datana <- datana %>%
-  mutate(avg_f0 = (f0_1 + f0_2 + f0_3 + f0_4) / 4) 
+  mutate(avg_f0 = (f0_1 + f0_2 + f0_3 + f0_4) / 4)
 
 #avg shimmer column
 datana <- datana %>%
-  mutate(avg_shim = (shimmer_1 + shimmer_2 + shimmer_3 + shimmer_4) / 4) 
+  mutate(avg_shim = (shimmer_1 + shimmer_2 + shimmer_3 + shimmer_4) / 4)
 
 #avg jitter column
 datana <- datana %>%
-  mutate(avg_jitt = (jitter_1 + jitter_2 + jitter_3 + jitter_4) / 4) 
+  mutate(avg_jitt = (jitter_1 + jitter_2 + jitter_3 + jitter_4) / 4)
 
 #avg amplitude column
 datana <- datana %>%
@@ -69,12 +77,28 @@ datana <- datana %>%
 
 #avg f1-f0 column
 datana <- datana %>%
-  mutate(avgf1minusf0 = (avg_f1 - avg_f0)) 
+  mutate(avgf1minusf0 = (avg_f1 - avg_f0))
+
+
+# COMMENT JVC:
+# you can combine all of these into a single function call, i.e.,
+# datana <- datana %>%
+#  mutate(., avg_f3 = (f3_1 + f3_2 + f3_3 + f3_4) / 4,
+#            avg_f2 = (f2_1 + f2_2 + f2_3 + f2_4) / 4,
+#            avg_f1 = (f1_1 + f1_2 + f1_3 + f1_4) / 4)
+
+
 
 # specify L as reference level for modeling
 datana$target_tone <- relevel(datasubset$target_tone, ref = "L")
 
-#isolate tone categories    
+# COMMENT JVC:
+# This doesn't run. There is no 'datasubset' yet in the script.
+# UPDATE: Found it on line 388 (though it still doesn't run for
+# me. You might want to rearrange this.
+
+
+#isolate tone categories
 Ltones <- datana %>%
   filter(target_tone == "L")
 
@@ -86,9 +110,9 @@ Htones <- datana %>%
 
 #avg Ltone f0 first vs. second half
 Ltones <- Ltones %>%
-  mutate(avg_f0_half1 = (f0_1 + f0_2) / 2) 
+  mutate(avg_f0_half1 = (f0_1 + f0_2) / 2)
 Ltones <- Ltones %>%
-  mutate(avg_f0_half2 = (f0_3 + f0_4) / 2) 
+  mutate(avg_f0_half2 = (f0_3 + f0_4) / 2)
 
 #restructure so portions of vowel are plottable by f0
 dat.m <- melt(Ltones,id.vars = 'target_tone', measure.vars = c('f0_1','f0_2','f0_3','f0_4'))
@@ -152,7 +176,7 @@ mean(Htones$avgf1minusf0, na.rm = T)
 sd(Htones$avgf1minusf0, na.rm = T)
 
 
-#avg + sd duration 
+#avg + sd duration
 mean(Ltones$target_voweldur, na.rm = T)
 sd(Ltones$target_voweldur, na.rm = T)
 mean(Mtones$target_voweldur, na.rm = T)
@@ -160,7 +184,7 @@ sd(Mtones$target_voweldur, na.rm = T)
 mean(Htones$target_voweldur, na.rm = T)
 sd(Htones$target_voweldur, na.rm = T)
 
-#avg + sd HNR 
+#avg + sd HNR
 mean(Ltones$avg_hnr, na.rm = T)
 sd(Ltones$avg_hnr, na.rm = T)
 mean(Mtones$avg_hnr, na.rm = T)
@@ -168,7 +192,7 @@ sd(Mtones$avg_hnr, na.rm = T)
 mean(Htones$avg_hnr, na.rm = T)
 sd(Htones$avg_hnr, na.rm = T)
 
-#avg + sd spec 
+#avg + sd spec
 mean(Ltones$avg_spec, na.rm = T)
 sd(Ltones$avg_spec, na.rm = T)
 mean(Mtones$avg_spec, na.rm = T)
@@ -241,12 +265,12 @@ ylim (75,200)
 #f0 by tone, slice 2
 ggplot(data = datana) +
   geom_boxplot(mapping = aes(x = target_tone, y = f0_2, fill = target_tone), na.rm = TRUE) +
-  ylim (75,200) 
+  ylim (75,200)
 
 #f0 by tone, slice 3
 ggplot(data = datana) +
   geom_boxplot(mapping = aes(x = target_tone, y = f0_3, fill = target_tone), na.rm = TRUE) +
-  ylim (75,200) 
+  ylim (75,200)
 
 #f0 by tone, slice 4
 ggplot(data = datana) +
@@ -282,89 +306,89 @@ ggplot(data = datana) +
     labs(x = "Average spectral tilt", y = "Average HNR", key = "category") +
     theme(legend.title=element_blank()) +
     scale_color_brewer(palette="Set1")
-  
+
   #spec - H2-H1. HNR - periodicity to noise ratio, signal to noise
 
 #avg f0 plot
   ggplot(data = datana) +
     geom_boxplot(mapping = aes(x = target_tone, y = avg_f0, fill = target_tone), na.rm = TRUE) +
     ylim (75,200)
-  
+
   #avg f1 plot
   ggplot(data = datana) +
-    geom_boxplot(mapping = aes(x = target_tone, y = avg_f1, fill = target_tone), na.rm = TRUE) 
-  
+    geom_boxplot(mapping = aes(x = target_tone, y = avg_f1, fill = target_tone), na.rm = TRUE)
+
   #avg f2 plot
   ggplot(data = datana) +
-    geom_boxplot(mapping = aes(x = target_tone, y = avg_f2, fill = target_tone), na.rm = TRUE) 
-  
-  
+    geom_boxplot(mapping = aes(x = target_tone, y = avg_f2, fill = target_tone), na.rm = TRUE)
+
+
   #avg f3 plot
   ggplot(data = datana) +
-    geom_boxplot(mapping = aes(x = target_tone, y = avg_f3, fill = target_tone), na.rm = TRUE) 
-  
+    geom_boxplot(mapping = aes(x = target_tone, y = avg_f3, fill = target_tone), na.rm = TRUE)
+
   #avg amp plot
   ggplot(datana) +
     geom_boxplot(aes(x = target_tone, y = avg_amp, fill = target_tone), na.rm = T)
-  
+
   #shimmer jitter plot
   ggplot(datana) +
-    geom_point(mapping = aes(x = shimmer_3, y = jitter_3, color = target_tone), na.rm = TRUE) 
-  
+    geom_point(mapping = aes(x = shimmer_3, y = jitter_3, color = target_tone), na.rm = TRUE)
+
   #f0 by sylons, slice 1
   ggplot(data = datana) +
     geom_boxplot(mapping = aes(x = target_sylons, y = f0_1, fill = target_tone), na.rm = TRUE) +
     ylim (75,200)
-  
+
   #f1 by tone
   ggplot(data = datana) +
     geom_boxplot(mapping = aes(x = target_tone, y = avg_f1, fill = target_tone), na.rm = TRUE)
-  
+
   #Ltone f0 slice
   ggplot(data = Ltones) +
     geom_boxplot(mapping = aes(x = target_tone, y = f0_1, fill = target_tone), na.rm = T, show.legend = F) +
     ylim (85,120) +
     labs(x = "L, slice 1") +
     labs(y = "f0")
-  
-  
+
+
   ggplot(data = Ltones) +
     geom_boxplot(mapping = aes(x = target_tone, y = f0_4, fill = target_tone), na.rm = TRUE, show.legend = F) +
     ylim (85,120) +
     labs(x = "L, slice 4") +
     labs(y = "f0")
-  
-  
-  
+
+
+
   ggplot(dat.m) +
     geom_boxplot(aes(x = variable, y = value, fill = variable), na.rm = T, show.legend = F) +
     labs(y = "f0", x = "portion of vowel") +
     scale_fill_brewer(palette="Blues")
-  
+
   ggplot(dat.mhnr) +
     geom_boxplot(aes(x = variable, y = value, fill = variable), na.rm = T, show.legend = F) +
     labs(y = "HNR", x = "portion of vowel") +
     scale_fill_brewer(palette="Blues")+
     ylim (-10,10)
-  
+
   ggplot(mspec) +
     geom_boxplot(aes(x = variable, y = value, fill = variable), na.rm = T, show.legend = F) +
     labs(y = "spectral tilt", x = "portion of vowel") +
     scale_fill_brewer(palette="Blues")+
     ylim (-10,10)
-  
+
   ggplot(mf1f0) +
     geom_boxplot(aes(x = variable, y = value, fill = variable), na.rm = T, show.legend = F) +
     labs(y = "spectral tilt", x = "portion of vowel") +
     scale_fill_brewer(palette="Blues")
-  
+
 #modeling -------------------------------------------------------------------------------
 
 # subset of data for modeling
 datasubset <- datana %>%
   select(., avg_hnr, avg_spec,target_voweldur,avgf1minusf0,target_tone,avg_shim,avg_jitt)
 
-##multinomial regression 
+##multinomial regression
 
 # specify L as reference level for modeling
 datana$target_tone <- relevel(datasubset$target_tone, ref = "L")
@@ -384,11 +408,20 @@ p
 ##lm
 
 f0slicemod <- lm(avg_f0 ~ f0_1 + f0_2 + f0_3 + f0_4, data = Ltones)
-summary(f0mod)
+summary(f0mod) # <- should this be f0slicemod?
+
+# COMMENT JVC:
+# So you are modeling avg_f0 as a function of f0 at previous time points?
+# This create an enourmous multicollinearity problem. Did you test model
+# assumptions? Why exactly are you doing this?
 
 
 hnrslicemod <- lm(avg_hnr ~ hnr_1 + hnr_2 + hnr_3 +hnr_4, data = Ltones)
 summary(hnrslicemod)
+
+# COMMENT JVC:
+# Same as above.
+
 
 avghnrmod <- lm(avg_hnr ~ target_tone, data = datana)
 summary(avghnrmod)
@@ -414,10 +447,10 @@ summary(avgjittmod)
 #tonespecintmod <- lm(avg_hnr ~ target_tone * avg_spec, data = datana)
 #summary(tonespecintmod)
 #
-# 
+#
 # nullmod <- lm(as.numeric(target_tone) ~ 1, data = datanafree)
 # specmod <- lm(as.numeric(target_tone) ~  avg_spec, data = datanafree)
-# #better than null 
+# #better than null
 # f1f0mod <- lm(as.numeric(target_tone) ~ avgf1minusf0, data = datanafree)
 # #non-sig trend over null F(1) = 3.4 p = 0.06
 # SHaddmod <- lm(as.numeric(target_tone) ~ avg_spec + avg_hnr, data = datanafree)
@@ -436,18 +469,18 @@ summary(avgjittmod)
 # #not better - interaction of hnr and f1f0 not better F(1) = 2.4 p = .12
 # SHFaddmod <- lm(as.numeric(target_tone) ~ avg_spec + avg_hnr + avgf1minusf0, data = datanafree)
 # #not better - adding f1f0 to spec + hnr not better F(1) = 1.8 p = .12
-# 
+#
 # fullmod <- lm(as.numeric(target_tone) ~ avg_spec * avg_hnr * avgf1minusf0, data = datanafree)
-# 
+#
 # summary(fullmod)
 # 0.15
-# 
+#
 # anova(DSaddmod, DSintmod)
-# 
+#
 # fullmodwjs <- lm(as.numeric(target_tone) ~ avg_spec * avg_hnr * avgf1minusf0 * avg_shim * avg_jitt, data = datanafree)
 # summary(fullmodwjs)
-# 
-# 
+#
+#
 # durmod <- lm(as.numeric(target_tone) ~ target_voweldur, data = datanafree)
 # #better than null
 # DSaddmod <- lm(as.numeric(target_tone) ~ target_voweldur + avg_spec, data = datanafree)
