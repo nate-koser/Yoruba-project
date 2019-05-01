@@ -1,5 +1,6 @@
 source("datatidy.R")
 
+#CV----------------------------------------------------------------------------------------
 #means, sd, various ------------------------------------------------------------------------
 
 #mean + sd vowel durations
@@ -126,3 +127,105 @@ mean(Htones$jitter_1, na.rm = T)
 mean(Htones$jitter_2, na.rm = T)
 mean(Htones$jitter_3, na.rm = T)
 mean(Htones$jitter_4, na.rm = T)
+
+#CVCV--------------------------------------------------------------------------------------
+
+#avg + sd f0 per tone by syllable
+mean(Ltones_v1$avg_f0_v1, na.rm = T)
+sd(Ltones_v1$avg_f0_v1, na.rm = T)
+mean(Mtones_v1$avg_f0_v1, na.rm = T)
+sd(Mtones_v1$avg_f0_v1, na.rm = T)
+mean(Htones_v1$avg_f0_v1, na.rm = T)
+sd(Htones_v1$avg_f0_v1, na.rm = T)
+mean(Ltones_v2$avg_f0_v2, na.rm = T)
+sd(Ltones_v2$avg_f0_v2, na.rm = T)
+mean(Mtones_v2$avg_f0_v2, na.rm = T)
+sd(Mtones_v2$avg_f0_v2, na.rm = T)
+mean(Htones_v2$avg_f0_v2, na.rm = T)
+sd(Htones_v2$avg_f0_v2, na.rm = T)
+
+
+#avg + sd HNR
+mean(Ltones_v1$avg_hnr_v1, na.rm = T)
+sd(Ltones_v1$avg_hnr_v1, na.rm = T)
+mean(Mtones_v1$avg_hnr_v1, na.rm = T)
+sd(Mtones_v1$avg_hnr_v1, na.rm = T)
+mean(Htones_v1$avg_hnr_v1, na.rm = T)
+sd(Htones_v1$avg_hnr_v1, na.rm = T)
+mean(Ltones_v2$avg_hnr_v2, na.rm = T)
+sd(Ltones_v2$avg_hnr_v2, na.rm = T)
+mean(Mtones_v2$avg_hnr_v2, na.rm = T)
+sd(Mtones_v2$avg_hnr_v2, na.rm = T)
+mean(Htones_v2$avg_hnr_v2, na.rm = T)
+sd(Htones_v2$avg_hnr_v2, na.rm = T)
+
+#avg + sd HNR by speaker
+mean(Ltones_v11$avg_hnr_v1, na.rm = T)
+sd(Ltones_v11$avg_hnr_v1, na.rm = T)
+mean(Mtones_v11$avg_hnr_v1, na.rm = T)
+sd(Mtones_v11$avg_hnr_v1, na.rm = T)
+mean(Htones_v11$avg_hnr_v1, na.rm = T)
+sd(Htones_v11$avg_hnr_v1, na.rm = T)
+mean(Ltones_v21$avg_hnr_v2, na.rm = T)
+sd(Ltones_v21$avg_hnr_v2, na.rm = T)
+mean(Mtones_v21$avg_hnr_v2, na.rm = T)
+sd(Mtones_v21$avg_hnr_v2, na.rm = T)
+mean(Htones_v21$avg_hnr_v2, na.rm = T)
+sd(Htones_v21$avg_hnr_v2, na.rm = T)
+
+mean(Ltones_v12$avg_hnr_v1, na.rm = T)
+sd(Ltones_v12$avg_hnr_v1, na.rm = T)
+mean(Mtones_v12$avg_hnr_v1, na.rm = T)
+sd(Mtones_v12$avg_hnr_v1, na.rm = T)
+mean(Htones_v12$avg_hnr_v1, na.rm = T)
+sd(Htones_v12$avg_hnr_v1, na.rm = T)
+mean(Ltones_v22$avg_hnr_v2, na.rm = T)
+sd(Ltones_v22$avg_hnr_v2, na.rm = T)
+mean(Mtones_v22$avg_hnr_v2, na.rm = T)
+sd(Mtones_v22$avg_hnr_v2, na.rm = T)
+mean(Htones_v22$avg_hnr_v2, na.rm = T)
+sd(Htones_v22$avg_hnr_v2, na.rm = T)
+
+
+#avg + sd spec
+mean(Ltones_v1$avg_spec_v1, na.rm = T)
+sd(Ltones_v1$avg_spec_v1, na.rm = T)
+mean(Mtones_v1$avg_spec_v1, na.rm = T)
+sd(Mtones_v1$avg_spec_v1, na.rm = T)
+mean(Htones_v1$avg_spec_v1, na.rm = T)
+sd(Htones_v1$avg_spec_v1, na.rm = T)
+mean(Ltones_v2$avg_spec_v2, na.rm = T)
+sd(Ltones_v2$avg_spec_v2, na.rm = T)
+mean(Mtones_v2$avg_spec_v2, na.rm = T)
+sd(Mtones_v2$avg_spec_v2, na.rm = T)
+mean(Htones_v2$avg_spec_v2, na.rm = T)
+sd(Htones_v2$avg_spec_v2, na.rm = T)
+
+#avg + sd spec by speaker
+mean(Ltones_v11$avg_spec_v1, na.rm = T)
+sd(Ltones_v11$avg_spec_v1, na.rm = T)
+mean(Mtones_v11$avg_spec_v1, na.rm = T)
+sd(Mtones_v11$avg_spec_v1, na.rm = T)
+mean(Htones_v11$avg_spec_v1, na.rm = T)
+sd(Htones_v11$avg_spec_v1, na.rm = T)
+mean(Ltones_v21$avg_spec_v2, na.rm = T)
+sd(Ltones_v21$avg_spec_v2, na.rm = T)
+mean(Mtones_v21$avg_spec_v2, na.rm = T)
+sd(Mtones_v21$avg_spec_v2, na.rm = T)
+mean(Htones_v21$avg_spec_v2, na.rm = T)
+sd(Htones_v21$avg_spec_v2, na.rm = T)
+
+mean(Ltones_v12$avg_spec_v1, na.rm = T)
+sd(Ltones_v12$avg_spec_v1, na.rm = T)
+mean(Mtones_v12$avg_spec_v1, na.rm = T)
+sd(Mtones_v12$avg_spec_v1, na.rm = T)
+mean(Htones_v12$avg_spec_v1, na.rm = T)
+sd(Htones_v12$avg_spec_v1, na.rm = T)
+mean(Ltones_v22$avg_spec_v2, na.rm = T)
+sd(Ltones_v22$avg_spec_v2, na.rm = T)
+mean(Mtones_v22$avg_spec_v2, na.rm = T)
+sd(Mtones_v22$avg_spec_v2, na.rm = T)
+mean(Htones_v22$avg_spec_v2, na.rm = T)
+sd(Htones_v22$avg_spec_v2, na.rm = T)
+
+
