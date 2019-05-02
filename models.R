@@ -184,3 +184,5 @@ r.squaredGLMM(ffsliceM)
 ffsliceH <- lmer(value ~ variable + (1|block) , data = dat.h10)
 summary(ffsliceH)
 r.squaredGLMM(ffsliceH)
+
+

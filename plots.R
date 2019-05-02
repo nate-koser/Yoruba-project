@@ -112,10 +112,30 @@ ggplot(data = datf0plot_v2, aes(x = variable, y=value, group = tone2, color = to
   stat_summary(data = datf0plot_v2, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) + #can also
   stat_summary(data = datf0plotm_v2, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #use errorbar
   stat_summary(data = datf0ploth_v2, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #with no se
+  facet_wrap(vars(toneseq))+
   theme(axis.text.x=element_blank())+
   scale_color_brewer(palette="Set1") +
   theme(legend.title=element_blank())+
   labs(x = "time", y = "mean F0")
+
+#first syll f0 over time
+ggplot(data = datf0plot_v1, aes(x = variable, y=value, group = tone1, color = tone1)) +
+  stat_summary( geom="line", fun.y = mean)+
+  stat_summary(data = datf0plotm_v1, geom="line", fun.y = mean)+
+  stat_summary(data = datf0ploth_v1, geom="line", fun.y = mean)+
+  stat_summary(data = datf0plot_v1, geom="point", fun.y = mean)+
+  stat_summary(data = datf0plotm_v1, geom="point", fun.y = mean)+
+  stat_summary(data = datf0ploth_v1, geom="point", fun.y = mean)+
+  stat_summary(data = datf0plot_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) + #can also
+  stat_summary(data = datf0plotm_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #use errorbar
+  stat_summary(data = datf0ploth_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #with no se
+  facet_wrap(vars(toneseq))+
+  theme(axis.text.x=element_blank())+
+  scale_color_brewer(palette="Set1") +
+  theme(legend.title=element_blank())+
+  labs(x = "time", y = "mean F0")
+
+
 
 
 
