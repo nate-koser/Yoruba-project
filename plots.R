@@ -19,10 +19,11 @@ ggplot(datacvcv) +
   theme(legend.title=element_blank()) +
   scale_color_brewer(palette="Set1")
 
-#plot avg spec + hnr v2
+#plot avg spec + hnr v2 slice 4
 ggplot(datacvcv) +
-  geom_point(mapping = aes(x = avg_spec_v2, y = avg_hnr_v2, color = tone2, shape = tone2), na.rm = TRUE) +
-  labs(x = "Average spectral tilt", y = "Average HNR", key = "category") +
+  geom_point(mapping = aes(x = specTilt_4, y = hnr_4, color = tone1, shape = tone1), na.rm = TRUE) +
+  geom_point(mapping = aes(x = specTilt_4_v2, y = hnr_4_v2, color = tone2, shape = tone2), na.rm = TRUE, show.legend = FALSE) +
+   labs(x = "Average spectral tilt", y = "Average HNR", key = "category") +
   theme(legend.title=element_blank()) +
   scale_color_brewer(palette="Set1")
 
@@ -85,7 +86,7 @@ ggplot(data = datf0plot, aes(x = variable, y=value, group = target_tone, color =
   labs(x = "time", y = "mean F0")
 
 
-#line/point plot mean f0 over "time" i.e. f0 slice, first syllable
+#first syll f0 over time
 ggplot(data = datf0plot_v1, aes(x = variable, y=value, group = tone1, color = tone1)) +
   stat_summary( geom="line", fun.y = mean)+
   stat_summary(data = datf0plotm_v1, geom="line", fun.y = mean)+
@@ -101,7 +102,7 @@ ggplot(data = datf0plot_v1, aes(x = variable, y=value, group = tone1, color = to
   theme(legend.title=element_blank())+
   labs(x = "time", y = "mean F0")
 
-#line/point plot mean f0 over "time" i.e. f0 slice, second syllable
+#second syll f0 over time
 ggplot(data = datf0plot_v2, aes(x = variable, y=value, group = tone2, color = tone2)) +
   stat_summary( geom="line", fun.y = mean)+
   stat_summary(data = datf0plotm_v2, geom="line", fun.y = mean)+
@@ -118,17 +119,14 @@ ggplot(data = datf0plot_v2, aes(x = variable, y=value, group = tone2, color = to
   theme(legend.title=element_blank())+
   labs(x = "time", y = "mean F0")
 
-#first syll f0 over time
-ggplot(data = datf0plot_v1, aes(x = variable, y=value, group = tone1, color = tone1)) +
+#LH HL f0
+ggplot(data = datf0plot_v2HL, aes(x = variable, y=value, group = tone2, color = tone2)) +
   stat_summary( geom="line", fun.y = mean)+
-  stat_summary(data = datf0plotm_v1, geom="line", fun.y = mean)+
-  stat_summary(data = datf0ploth_v1, geom="line", fun.y = mean)+
-  stat_summary(data = datf0plot_v1, geom="point", fun.y = mean)+
-  stat_summary(data = datf0plotm_v1, geom="point", fun.y = mean)+
-  stat_summary(data = datf0ploth_v1, geom="point", fun.y = mean)+
-  stat_summary(data = datf0plot_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) + #can also
-  stat_summary(data = datf0plotm_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #use errorbar
-  stat_summary(data = datf0ploth_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #with no se
+  stat_summary(data = datf0ploth_v2LH, geom="line", fun.y = mean)+
+  stat_summary(data = datf0plot_v2HL, geom="point", fun.y = mean)+
+  stat_summary(data = datf0ploth_v2LH, geom="point", fun.y = mean)+
+  stat_summary(data = datf0plot_v2HL, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) + #can also
+  stat_summary(data = datf0ploth_v2LH, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #with no se
   facet_wrap(vars(toneseq))+
   theme(axis.text.x=element_blank())+
   scale_color_brewer(palette="Set1") +
@@ -137,6 +135,31 @@ ggplot(data = datf0plot_v1, aes(x = variable, y=value, group = tone1, color = to
 
 
 
+#avg f0 boxplot s1 v1
+ggplot(data = datas1) +
+  geom_boxplot(mapping = aes(x = tone1, y = avg_f0_v1, fill = tone1), na.rm = TRUE) +
+  ylim (75,200)
+#avg f0 boxplot s1 v2
+ggplot(data = datas1) +
+  geom_boxplot(mapping = aes(x = tone2, y = avg_f0_v2, fill = tone2), na.rm = TRUE) +
+  ylim (75,200)
+#avg f0 boxplot s2 v1
+ggplot(data = datas2) +
+  geom_boxplot(mapping = aes(x = tone1, y = avg_f0_v1, fill = tone1), na.rm = TRUE) +
+  ylim (75,200)
+#avg f0 boxplot s2 v2
+ggplot(data = datas2) +
+  geom_boxplot(mapping = aes(x = tone2, y = avg_f0_v2, fill = tone2), na.rm = TRUE) +
+  ylim (75,200)
+
+#avg f0 no contour v1
+ggplot(data = datanocon) +
+  geom_boxplot(mapping = aes(x = tone1, y = avg_f0_v1, fill = tone1), na.rm = TRUE) +
+  ylim (75,200)
+#avg f0 no contour v2
+ggplot(data = datanocon) +
+  geom_boxplot(mapping = aes(x = tone2, y = avg_f0_v2, fill = tone2), na.rm = TRUE) +
+  ylim (75,200)
 
 
 
