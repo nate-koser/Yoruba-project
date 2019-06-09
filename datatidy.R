@@ -133,11 +133,13 @@ datacvcv <- datacvcv %>%
   filter(., subj != 'mz1' | block != 1 | trial != 51,
             subj != 'mz1' | block != 1 | trial != 65,
             subj != 'mz1' | block != 1 | trial != 67,
+            subj != 'mz1' | block != 2 | trial != 54,
             subj != 'mz1' | block != 3 | trial != 74,
             subj != 'mz1' | block != 3 | trial != 75,
             subj != 'mz1' | block != 4 | trial != 73,
             subj != 'mz2' | block != 1 | trial != 21,
             subj != 'mz2' | block != 1 | trial != 22,
+            subj != 'mz2' | block != 1 | trial != 9,
             subj != 'mz2' | block != 2 | trial != 5,
             subj != 'mz2' | block != 2 | trial != 16,
             subj != 'mz2' | block != 2 | trial != 17,
@@ -164,7 +166,8 @@ datacvcv <- datacvcv %>%
          avg_shim_v2 = (shimmer_1_v2 + shimmer_2_v2 + shimmer_3_v2 + shimmer_4_v2) / 4,
          avg_amp_v2 = (amp_1_v2 + amp_2_v2 + amp_3_v2 + amp_4_v2) / 4,
          avg_word_hnr = (avg_hnr_v1 + avg_hnr_v2) / 2,
-         avg_word_spec = (avg_spec_v1 + avg_spec_v2) / 2)
+         avg_word_spec = (avg_spec_v1 + avg_spec_v2) / 2,
+         avg_word_f0 = (avg_f0_v1 + avg_f0_v2) / 2)
 
 datacvcv$toneseq <- paste(datacvcv$tone1,datacvcv$tone2, sep = "")
 datacvcv$toneseq <- as.factor(datacvcv$toneseq)
@@ -266,9 +269,9 @@ dat.hh_v22 <- melt(Htones_v22,id.vars = c('block','vowel2','tone2','word', 'subj
 dat.ls_v1 <- melt(Ltones_v1,id.vars = c('block','tone1','vowel1','word', 'subj','toneseq'), measure.vars = c('specTilt_1','specTilt_2','specTilt_3','specTilt_4'))
 dat.ms_v1 <- melt(Mtones_v1,id.vars = c('block','tone1','vowel1','word', 'subj','toneseq'), measure.vars = c('specTilt_1','specTilt_2', 'specTilt_3','specTilt_4'))
 dat.hs_v1 <- melt(Htones_v1,id.vars = c('block','tone1','vowel1','word', 'subj','toneseq'), measure.vars = c('specTilt_1','specTilt_2', 'specTilt_3','specTilt_4'))
-dat.ls_v2 <- melt(Ltones_v2,id.vars = c('block','tone1','vowel1','word', 'subj','toneseq'), measure.vars = c('specTilt_1_v2','specTilt_2_v2','specTilt_3_v2','specTilt_4_v2'))
-dat.ms_v2 <- melt(Mtones_v2,id.vars = c('block','tone1','vowel1','word', 'subj','toneseq'), measure.vars = c('specTilt_1_v2','specTilt_2_v2','specTilt_3_v2','specTilt_4_v2'))
-dat.hs_v2 <- melt(Htones_v2,id.vars = c('block','tone1','vowel1','word', 'subj','toneseq'), measure.vars = c('specTilt_1_v2','specTilt_2_v2','specTilt_3_v2','specTilt_4_v2'))
+dat.ls_v2 <- melt(Ltones_v2,id.vars = c('block','tone2','vowel2','word', 'subj','toneseq'), measure.vars = c('specTilt_1_v2','specTilt_2_v2','specTilt_3_v2','specTilt_4_v2'))
+dat.ms_v2 <- melt(Mtones_v2,id.vars = c('block','tone2','vowel2','word', 'subj','toneseq'), measure.vars = c('specTilt_1_v2','specTilt_2_v2','specTilt_3_v2','specTilt_4_v2'))
+dat.hs_v2 <- melt(Htones_v2,id.vars = c('block','tone2','vowel2','word', 'subj','toneseq'), measure.vars = c('specTilt_1_v2','specTilt_2_v2','specTilt_3_v2','specTilt_4_v2'))
 
 #same for spec s1
 dat.ls_v11 <- melt(Ltones_v11,id.vars = c('block','tone1','vowel1','word', 'subj','toneseq'), measure.vars = c('specTilt_1','specTilt_2','specTilt_3','specTilt_4'))
@@ -299,4 +302,7 @@ datf0plot_v2HL <- filter(datf0plot_v2, toneseq == "HL")
 datf0ploth_v2LH <- filter(datf0ploth_v2, toneseq == "LH")
 
 #create "syllable position" variable
-dat.syll <- melt(datacvcv,id.vars = c('avg_word_hnr', 'block','tone1', 'tone2', 'word', 'subj','toneseq'), measure.vars = c('vowel1','vowel2'))
+dat.syll <- melt(datacvcv,id.vars = c('avg_word_hnr','avg_f0_v1','avg_f0_v2','avg_word_f0', 'block','tone1', 'tone2', 'word', 'subj','toneseq'), measure.vars = c('vowel1','vowel2'))
+
+#frame for avg spec by tone
+dat.spec <- gather(datacvcv, 'tone1', 'tone2', key = position, value = tone)
