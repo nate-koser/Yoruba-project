@@ -12,12 +12,13 @@ ggplot(datana) +
 #plot avg spec + hnr v1
 ggplot(datacvcv) +
   geom_point(mapping = aes(x = avg_spec_v1, y = avg_hnr_v1, color = tone1, shape = tone1), na.rm = TRUE) +
-  labs(x = "Average spectral tilt", y = "Average HNR", key = "category") +
+  labs(x = "average spectral tilt", y = "average HNR", key = "category") +
   theme(legend.title=element_blank()) +
   geom_point(mapping = aes(x = avg_spec_v2, y = avg_hnr_v2, color = tone2, shape = tone2), na.rm = TRUE) +
-  labs(x = "Average spectral tilt", y = "Average HNR", key = "category") +
   theme(legend.title=element_blank()) +
   scale_color_brewer(palette="Set1")
+
+
 
 #plot avg spec + hnr v2 slice 4
 ggplot(datacvcv) +
@@ -86,27 +87,28 @@ ggplot(data = datf0plot, aes(x = variable, y=value, group = target_tone, color =
 #f0----------------------------------------------------------------------------------------------------
 #avg f0 by tone
 ggplot(data = dat.spec) +
-  geom_boxplot(mapping = aes(x = tone, y = avg_word_f0, fill = tone), na.rm = TRUE) +
+  geom_boxplot(mapping = aes(x = tone, y = avg_word_f0, fill = subj), na.rm = TRUE) +
   ylim (75,200)+
   scale_x_discrete(limits=c("L","M","H"))+
   theme(axis.title.x=element_blank())+
-  labs(y = "mean word f0")+
+  labs(y = "mean word F0")+
   theme(legend.position = "none")
 
 #avg f0 boxplot v1
 ggplot(data = datacvcv) +
-  geom_boxplot(mapping = aes(x = tone1, y = avg_f0_v1, fill = tone1), na.rm = TRUE) +
+  geom_boxplot(mapping = aes(x = tone1, y = avg_f0_v1, fill = subj), na.rm = TRUE) +
   ylim (75,200)+
   scale_x_discrete(limits=c("L","M","H"))+
-  labs(x = "syllable 1", y = "mean f0")+
+  labs(x = "syllable 1", y = "mean F0")+
   theme(legend.position="none")
 
 #avg f0 boxplot v2
 ggplot(data = datacvcv) +
-  geom_boxplot(mapping = aes(x = tone2, y = avg_f0_v2, fill = tone2), na.rm = TRUE) +
+  geom_boxplot(mapping = aes(x = tone2, y = avg_f0_v2, fill = subj), na.rm = TRUE) +
   ylim (75,200)+
   scale_x_discrete(limits=c("L","M","H"))+
   theme(axis.text.y=element_blank())+
+  theme(legend.title=element_blank())+
   theme(axis.title.y=element_blank())+
   labs(x = "syllable 2")
 
@@ -124,7 +126,7 @@ ggplot(data = datf0plot_v1, aes(x = variable, y=value, group = toneseq, color = 
   theme(axis.text.x=element_blank())+
   scale_color_brewer(palette="Set1") +
   theme(legend.position="none")+
-  labs(x = "time", y = "mean f0")+
+  labs(x = "time", y = "mean F0")+
   annotate("text", x = 4.1, y = 177, label = "HL")+
   annotate("text", x = 4.1, y = 173, label = "HH")+
   annotate("text", x = 4.1, y = 164, label = "HM")+
@@ -208,16 +210,15 @@ ggplot(data = datanocon) +
 #spectral tilt---------------------------------------------------------------------------------
 #avg spectilt by tone
 ggplot(data = dat.spec) +
-  geom_boxplot(mapping = aes(x = tone, y = avg_word_spec, fill = tone), na.rm = TRUE) +
+  geom_boxplot(mapping = aes(x = tone, y = avg_word_spec, fill = subj), na.rm = TRUE) +
   ylim (-20,20)+
   scale_x_discrete(limits=c("L","M","H"))+
   theme(axis.title.x=element_blank())+
-  labs(y = "mean word spectral tilt")+
-  theme(legend.position = "none")
+  labs(y = "mean word spectral tilt")
 
 #avg spectilt boxplot v1
 ggplot(data = datacvcv) +
-  geom_boxplot(mapping = aes(x = tone1, y = avg_spec_v1, fill = tone1), na.rm = TRUE) +
+  geom_boxplot(mapping = aes(x = tone1, y = avg_spec_v1, fill = subj), na.rm = TRUE) +
   ylim (-20,20)+
   scale_x_discrete(limits=c("L","M","H"))+
   labs(x = "syllable 1", y = "mean spectral tilt")+
@@ -225,7 +226,7 @@ ggplot(data = datacvcv) +
 
 #avg spectilt boxplot v2
 ggplot(data = datacvcv) +
-  geom_boxplot(mapping = aes(x = tone2, y = avg_spec_v2, fill = tone2), na.rm = TRUE) +
+  geom_boxplot(mapping = aes(x = tone2, y = avg_spec_v2, fill = subj), na.rm = TRUE) +
   ylim (-20,20)+
   scale_x_discrete(limits=c("L","M","H"))+
   theme(axis.text.y=element_blank())+
@@ -250,16 +251,6 @@ ggplot(data = dat.ls_v1, aes(x = variable, y=value, group = tone1, color = tone1
   theme(legend.position="none")+
   facet_wrap(vars(subj))+
   labs(x = "syllable 1", y = "mean spectral tilt")
-  #annotate("text", x = 4.1, y = 177, label = "HL")+
-  #annotate("text", x = 4.1, y = 173, label = "HH")+
-  #annotate("text", x = 4.1, y = 164, label = "HM")+
-  #annotate("text", x = 4.1, y = 150, label = "MH")+
-  #annotate("text", x = 4.1, y = 148, label = "ML")+
-  #annotate("text", x = 4.1, y = 146, label = "MM")+
-  #annotate("text", x = 4.1, y = 112, label = "LM")+
-  #annotate("text", x = 4.1, y = 107, label = "LL")+
-  #annotate("text", x = 4.1, y = 104, label = "LH")+
-  #annotate("text", x = 0.7, y = 105, label = "syllable 1")
 
 #second syll spectilt over time
 ggplot(data = dat.ls_v2, aes(x = variable, y=value, group = tone2, color = tone2, shape=tone2)) +
@@ -280,3 +271,69 @@ ggplot(data = dat.ls_v2, aes(x = variable, y=value, group = tone2, color = tone2
   theme(axis.title.y=element_blank())+
   theme(legend.title=element_blank())+
   labs(x = "syllable 2", y = "mean spectral tilt")
+
+#HNR---------------------------------------------------------------------------------
+#avg HNR by tone
+ggplot(data = dat.spec) +
+  geom_boxplot(mapping = aes(x = tone, y = avg_word_hnr, fill = tone), na.rm = TRUE) +
+  ylim (-20,30)+
+  scale_x_discrete(limits=c("L","M","H"))+
+  theme(axis.title.x=element_blank())+
+  labs(y = "mean word HNR")+
+  theme(legend.position = "none")
+
+#avg HNR boxplot v1
+ggplot(data = datacvcv) +
+  geom_boxplot(mapping = aes(x = tone1, y = avg_hnr_v1, fill = tone1), na.rm = TRUE) +
+  ylim (-20,30)+
+  scale_x_discrete(limits=c("L","M","H"))+
+  labs(x = "syllable 1", y = "mean HNR")+
+  theme(legend.position="none")
+
+#avg HNR boxplot v2
+ggplot(data = datacvcv) +
+  geom_boxplot(mapping = aes(x = tone2, y = avg_hnr_v2, fill = tone2), na.rm = TRUE) +
+  ylim (-20,30)+
+  scale_x_discrete(limits=c("L","M","H"))+
+  theme(axis.text.y=element_blank())+
+  theme(axis.title.y=element_blank())+
+  theme(legend.title=element_blank())+
+  labs(x = "syllable 2")
+
+#first syll HNR over time
+ggplot(data = dat.lh_v1, aes(x = variable, y=value, group = tone1, color = tone1, shape = tone1)) +
+  stat_summary( geom="line", fun.y = mean)+
+  ylim (-20,30)+
+  stat_summary(data = dat.mh_v1, geom="line", fun.y = mean)+
+  stat_summary(data = dat.hh_v1, geom="line", fun.y = mean)+
+  stat_summary(data = dat.lh_v1, geom="point", fun.y = mean)+
+  stat_summary(data = dat.mh_v1, geom="point", fun.y = mean)+
+  stat_summary(data = dat.hh_v1, geom="point", fun.y = mean)+
+  stat_summary(data = dat.lh_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) + #can also
+  stat_summary(data = dat.mh_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) +  # , geom = "smooth", se = Tuse errorbar
+  stat_summary(data = dat.hh_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) +  #with no se
+  theme(axis.text.x=element_blank())+
+  scale_color_brewer(palette="Set1") +
+  theme(legend.position="none")+
+  #facet_wrap(vars(subj))+
+  labs(x = "syllable 1", y = "mean HNR")
+
+#second syll HNR over time
+ggplot(data = dat.lh_v2, aes(x = variable, y=value, group = tone2, color = tone2, shape=tone2)) +
+  stat_summary( geom="line", fun.y = mean)+
+  ylim (-20,20)+
+  stat_summary(data = dat.mh_v2, geom="line", fun.y = mean)+
+  stat_summary(data = dat.hh_v2, geom="line", fun.y = mean)+
+  stat_summary(data = dat.lh_v2, geom="point", fun.y = mean)+
+  stat_summary(data = dat.mh_v2, geom="point", fun.y = mean)+
+  stat_summary(data = dat.hh_v2, geom="point", fun.y = mean)+
+  stat_summary(data = dat.lh_v2, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) + #can also
+  stat_summary(data = dat.mh_v2, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) +  # , geom = "smooth", se = Tuse errorbar
+  stat_summary(data = dat.hh_v2, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) +  #with no se
+  theme(axis.text.x=element_blank())+
+  scale_color_brewer(palette="Set1") +
+  #facet_wrap(vars(subj))+
+  theme(axis.text.y=element_blank())+
+  theme(axis.title.y=element_blank())+
+  theme(legend.title=element_blank())+
+  labs(x = "syllable 2", y = "mean HNR")

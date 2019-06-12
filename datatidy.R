@@ -134,6 +134,7 @@ datacvcv <- datacvcv %>%
             subj != 'mz1' | block != 1 | trial != 65,
             subj != 'mz1' | block != 1 | trial != 67,
             subj != 'mz1' | block != 2 | trial != 54,
+            subj != 'mz1' | block != 3 | trial != 4,
             subj != 'mz1' | block != 3 | trial != 74,
             subj != 'mz1' | block != 3 | trial != 75,
             subj != 'mz1' | block != 4 | trial != 73,

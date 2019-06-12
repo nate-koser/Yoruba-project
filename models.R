@@ -167,6 +167,28 @@ summary(ffsliceH)
 r.squaredGLMM(ffsliceH)
 
 #CVCV------------------------------------------------------------------------------------------
+#syll and spec s1
+specsyll1s1 <- lmer(avg_spec_v1 ~ tone1  +  (1|word)  , data = datas1)
+summary(specsyll1s1)
+emmeans(specsyll1s1, list(pairwise ~ tone1), adjust = "tukey")
+r.squaredGLMM(specsyll1s1)
+
+specsyll2s1 <- lmer(avg_spec_v2 ~ tone2  +  (1|word)  , data = datas1)
+summary(specsyll2s1)
+emmeans(specsyll2s1, list(pairwise ~ tone2), adjust = "tukey")
+r.squaredGLMM(specsyll2s1)
+
+#syll and spec s2
+specsyll1s2 <- lmer(avg_spec_v1 ~ tone1  +  (1|word)  , data = datas2)
+summary(specsyll1s2)
+emmeans(specsyll1s2, list(pairwise ~ tone1), adjust = "tukey")
+r.squaredGLMM(specsyll1s2)
+
+specsyll2s2 <- lmer(avg_spec_v2 ~ tone2 +  (1|word)  , data = datas2)
+summary(specsyll2s2)
+emmeans(specsyll2s2, list(pairwise ~ tone2), adjust = "tukey")
+r.squaredGLMM(specsyll2s2)
+
 
 
 #hnr syll 1 slices
@@ -348,3 +370,14 @@ seqhnr2 <- lmer(avg_hnr_v2 ~ toneseq +  vowel2 + (1|subj) + (1|block) , data = d
 summary(seqhnr2)
 r.squaredGLMM(seqhnr2)
 emmeans(seqhnr2, list(pairwise ~ toneseq), adjust = "tukey")
+
+#sequence spec
+seqspec1 <- lmer(avg_spec_v1 ~ toneseq +  (1|subj) + (1|block), data = datacvcv )
+summary(seqspec1)
+r.squaredGLMM(seqspec1)
+emmeans(seqspec1, list(pairwise ~ toneseq), adjust = "tukey")
+
+seqspec2 <- lmer(avg_spec_v2 ~ toneseq +   (1|subj) + (1|block) , data = datacvcv )
+summary(seqspec2)
+r.squaredGLMM(seqspec2)
+emmeans(seqspec2, list(pairwise ~ toneseq), adjust = "tukey")
