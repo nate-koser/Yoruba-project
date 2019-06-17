@@ -167,122 +167,121 @@ summary(ffsliceH)
 r.squaredGLMM(ffsliceH)
 
 #CVCV------------------------------------------------------------------------------------------
+#spec tilt-----------------------------------------------------------------
+
+#by syllable
 #syll and spec s1
-specsyll1s1 <- lmer(avg_spec_v1 ~ tone1  +  (1|word)  , data = datas1)
+specsyll1s1 <- lmer(avg_spec_v1 ~ tone1  +  (block|word)  , data = datas1)
 summary(specsyll1s1)
 emmeans(specsyll1s1, list(pairwise ~ tone1), adjust = "tukey")
 r.squaredGLMM(specsyll1s1)
 
-specsyll2s1 <- lmer(avg_spec_v2 ~ tone2  +  (1|word)  , data = datas1)
+specsyll2s1 <- lmer(avg_spec_v2 ~ tone2  +  (block|word)  , data = datas1)
 summary(specsyll2s1)
 emmeans(specsyll2s1, list(pairwise ~ tone2), adjust = "tukey")
 r.squaredGLMM(specsyll2s1)
 
 #syll and spec s2
-specsyll1s2 <- lmer(avg_spec_v1 ~ tone1  +  (1|word)  , data = datas2)
+specsyll1s2 <- lmer(avg_spec_v1 ~ tone1  +  (block|word)  , data = datas2)
 summary(specsyll1s2)
 emmeans(specsyll1s2, list(pairwise ~ tone1), adjust = "tukey")
 r.squaredGLMM(specsyll1s2)
 
-specsyll2s2 <- lmer(avg_spec_v2 ~ tone2 +  (1|word)  , data = datas2)
+specsyll2s2 <- lmer(avg_spec_v2 ~ tone2 +  (block|word)  , data = datas2)
 summary(specsyll2s2)
 emmeans(specsyll2s2, list(pairwise ~ tone2), adjust = "tukey")
 r.squaredGLMM(specsyll2s2)
 
-
-
-#hnr syll 1 slices
-tonehv1s1 <- lmer(hnr_1 ~ tone1  + vowel1 +  (1|subj) , data = datacvcv)
-tonehv1s2 <- lmer(hnr_2 ~ tone1  + vowel1 + (1|subj) , data = datacvcv)
-tonehv1s3 <- lmer(hnr_3 ~ tone1  + vowel1 + (1|subj) , data = datacvcv)
-tonehv1s4 <- lmer(hnr_4 ~ tone1  + vowel1 + (1|subj) , data = datacvcv)
-summary(tonehv1s4)
-emmeans(tonehv1s1, list(pairwise ~ tone1), adjust = "tukey")
-#hnr syll 2 slices
-tonehv2s1 <- lmer(hnr_1_v2 ~ tone2  + vowel2 + (1|subj) , data = datacvcv)
-tonehv2s2 <- lmer(hnr_2_v2 ~ tone2  + vowel2 + (1|subj) , data = datacvcv)
-tonehv2s3 <- lmer(hnr_3_v2 ~ tone2  + vowel2 + (1|subj) , data = datacvcv)
-tonehv2s4 <- lmer(hnr_4_v2 ~ tone2  + vowel2 +(1|subj) , data = datacvcv)
-summary(tonehv2s4)
-emmeans(tonehv2s1, list(pairwise ~ tone2), adjust = "tukey")
-
-#spec syll 1  speak 1 slices
-tonesv1s1s1 <- lmer(specTilt_1 ~ tone1  + (1|block) , data = datas1)
-tonesv1s1s2 <- lmer(specTilt_2 ~ tone1  + (1|block) , data = datas1)
-tonesv1s1s3 <- lmer(specTilt_3 ~ tone1  + (1|block) , data = datas1)
-tonesv1s1s4 <- lmer(specTilt_4 ~ tone1  + (1|block) , data = datas1)
-summary(tonesv1s1s4)
-emmeans(tonesv1s1s1, list(pairwise ~ tone1), adjust = "tukey")
-#spec syll 2 speak 1 slices
-tonesv2s1s1 <- lmer(specTilt_1_v2 ~ tone2  + (1|block) , data = datas1)
-tonesv2s1s2 <- lmer(specTilt_2_v2 ~ tone2  + (1|block) , data = datas1)
-tonesv2s1s3 <- lmer(specTilt_3_v2 ~ tone2  + (1|block) , data = datas1)
-tonesv2s1s4 <- lmer(specTilt_4_v2 ~ tone2  + (1|block) , data = datas1)
-summary(tonesv2s1s4)
-emmeans(tonesv2s1s1, list(pairwise ~ tone2), adjust = "tukey")
-
-#spec syll 1  speak 2 slices
-tonesv1s2s1 <- lmer(specTilt_1 ~ tone1  + (1|block) , data = datas2)
-tonesv1s2s2 <- lmer(specTilt_2 ~ tone1  + (1|block) , data = datas2)
-tonesv1s2s3 <- lmer(specTilt_3 ~ tone1  + (1|block) , data = datas2)
-tonesv1s2s4 <- lmer(specTilt_4 ~ tone1  + (1|block) , data = datas2)
-summary(tonesv1s2s4)
-emmeans(tonesv1s2s4, list(pairwise ~ tone1), adjust = "tukey")
-#spec syll 2 speak 2 slices
-tonesv2s2s1 <- lmer(specTilt_1_v2 ~ tone2  + (1|block) , data = datas2)
-tonesv2s2s2 <- lmer(specTilt_2_v2 ~ tone2  + (1|block) , data = datas2)
-tonesv2s2s3 <- lmer(specTilt_3_v2 ~ tone2  + (1|block) , data = datas2)
-tonesv2s2s4 <- lmer(specTilt_4_v2 ~ tone2  + (1|block) , data = datas2)
-summary(tonesv2s2s1)
-emmeans(tonesv2s2s4, list(pairwise ~ tone2), adjust = "tukey")
-
-#course of vowel models-----------------------------------------------------
-
+#slice models
 #spec syll 1  s1
-lowspecs1s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.ls_v11)
+lowspecs1s1 <- lmer(value ~ variable  +  (block|word), data = dat.ls_v11)
 summary(lowspecs1s1)
 emmeans(lowspecs1s1, list(pairwise ~ variable), adjust = "tukey")
-midspecs1s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.ms_v11)
+r.squaredGLMM(lowspecs1s1)
+
+midspecs1s1 <- lmer(value ~ variable  +  (block|word), data = dat.ms_v11)
 summary(midspecs1s1)
 emmeans(midspecs1s1, list(pairwise ~ variable), adjust = "tukey")
-highspecs1s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.hs_v11)
+r.squaredGLMM(midspecs1s1)
+
+highspecs1s1 <- lmer(value ~ variable  + (block|word), data = dat.hs_v11)
 summary(highspecs1s1)
 emmeans(highspecs1s1, list(pairwise ~ variable), adjust = "tukey")
+r.squaredGLMM(highspecs1s1)
 
 #spec syll 2 s1
-lowspecs2s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.ls_v21)
+lowspecs2s1 <- lmer(value ~ variable  + (block|word), data = dat.ls_v21)
 summary(lowspecs2s1)
 emmeans(lowspecs2s1, list(pairwise ~ variable), adjust = "tukey")
-midspecs2s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.ms_v21)
-summary(midspecs2s1)
-emmeans(midspecs2s1, list(pairwise ~ variable), adjust = "tukey")
-highspecs2s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.hs_v21)
-summary(highspecs2s1)
-emmeans(highspecs2s1, list(pairwise ~ variable), adjust = "tukey")
 r.squaredGLMM(lowspecs2s1)
 
+midspecs2s1 <- lmer(value ~ variable  + (block|word), data = dat.ms_v21)
+summary(midspecs2s1)
+emmeans(midspecs2s1, list(pairwise ~ variable), adjust = "tukey")
+r.squaredGLMM(midspecs2s1)
+
+highspecs2s1 <- lmer(value ~ variable  + (block|word), data = dat.hs_v21)
+summary(highspecs2s1)
+emmeans(highspecs2s1, list(pairwise ~ variable), adjust = "tukey")
+r.squaredGLMM(highspecs2s1)
+
+
 #spec syll 1  s2
-lowspecs1s2 <- lmer(value ~ variable  + (1|block) , data = dat.ls_v12)
+lowspecs1s2 <- lmer(value ~ variable  + (block|word) , data = dat.ls_v12)
 summary(lowspecs1s2)
 emmeans(lowspecs1s2, list(pairwise ~ variable), adjust = "tukey")
-midspecs1s2 <- lmer(value ~ variable  + (1|block) , data = dat.ms_v12)
+r.squaredGLMM(lowspecs1s2)
+
+midspecs1s2 <- lmer(value ~ variable  + (block|word) , data = dat.ms_v12)
 summary(midspecs1s2)
 emmeans(midspecs1s2, list(pairwise ~ variable), adjust = "tukey")
-highspecs1s2 <- lmer(value ~ variable  + (1|block) , data = dat.hs_v12)
+r.squaredGLMM(midspecs1s2)
+
+highspecs1s2 <- lmer(value ~ variable  + (block|word) , data = dat.hs_v12)
 summary(highspecs1s2)
 emmeans(highspecs1s2, list(pairwise ~ variable), adjust = "tukey")
+r.squaredGLMM(highspecs1s2)
 
 #spec syll 2 s2
-lowspecs2s2 <- lmer(value ~ variable  + (1|block) , data = dat.ls_v22)
+lowspecs2s2 <- lmer(value ~ variable  + (block|word) , data = dat.ls_v22)
 summary(lowspecs2s2)
 emmeans(lowspecs2s2, list(pairwise ~ variable), adjust = "tukey")
-midspecs2s2 <- lmer(value ~ variable  + (1|block) , data = dat.ms_v22)
+r.squaredGLMM(lowspecs2s2)
+
+midspecs2s2 <- lmer(value ~ variable  + (block|word) , data = dat.ms_v22)
 summary(midspecs2s2)
 emmeans(midspecs2s2, list(pairwise ~ variable), adjust = "tukey")
-highspecs2s2 <- lmer(value ~ variable  + (1|block) , data = dat.hs_v22)
+r.squaredGLMM(midspecs2s2)
+
+highspecs2s2 <- lmer(value ~ variable  + (block|word) , data = dat.hs_v22)
 summary(highspecs2s2)
 emmeans(highspecs2s2, list(pairwise ~ variable), adjust = "tukey")
-r.squaredGLMM(lowspecs2s2)
+r.squaredGLMM(highspecs2s2)
+
+#sequence on spec tilt
+
+seqspec1v1 <- lmer(avg_spec_v1 ~ toneseq +   (block|word), data = datas1 )
+summary(seqspec1v1)
+r.squaredGLMM(seqspec1v1)
+emmeans(seqspec1v1, list(pairwise ~ toneseq), adjust = "tukey")
+
+seqspec1v2 <- lmer(avg_spec_v2 ~ toneseq +   (block|word), data = datas1 )
+summary(seqspec1v2)
+r.squaredGLMM(seqspec1v2)
+emmeans(seqspec1v2, list(pairwise ~ toneseq), adjust = "tukey")
+
+seqspec2v1 <- lmer(avg_spec_v1 ~ toneseq +  (block|word) , data = datas2 )
+summary(seqspec2v1)
+r.squaredGLMM(seqspec2v1)
+emmeans(seqspec2v1, list(pairwise ~ toneseq), adjust = "tukey")
+
+seqspec2v2 <- lmer(avg_spec_v2 ~ toneseq +  (block|word) , data = datas2 )
+summary(seqspec2v2)
+r.squaredGLMM(seqspec2v2)
+emmeans(seqspec2v2, list(pairwise ~ toneseq), adjust = "tukey")
+
+
+#hnr---------------------------------------------------------------------
 
 #hnr syll 1
 lowhnrs1 <- lmer(value ~ variable  + (1|block)  + (1|subj), data = dat.lh_v1)
@@ -371,13 +370,3 @@ summary(seqhnr2)
 r.squaredGLMM(seqhnr2)
 emmeans(seqhnr2, list(pairwise ~ toneseq), adjust = "tukey")
 
-#sequence spec
-seqspec1 <- lmer(avg_spec_v1 ~ toneseq +  (1|subj) + (1|block), data = datacvcv )
-summary(seqspec1)
-r.squaredGLMM(seqspec1)
-emmeans(seqspec1, list(pairwise ~ toneseq), adjust = "tukey")
-
-seqspec2 <- lmer(avg_spec_v2 ~ toneseq +   (1|subj) + (1|block) , data = datacvcv )
-summary(seqspec2)
-r.squaredGLMM(seqspec2)
-emmeans(seqspec2, list(pairwise ~ toneseq), adjust = "tukey")

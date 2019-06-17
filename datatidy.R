@@ -267,6 +267,7 @@ dat.mh_v22 <- melt(Mtones_v22,id.vars = c('block','vowel2','tone2','word', 'subj
 dat.hh_v22 <- melt(Htones_v22,id.vars = c('block','vowel2','tone2','word', 'subj','toneseq'), measure.vars = c('hnr_1_v2','hnr_2_v2','hnr_3_v2','hnr_4_v2'))
 
 #same for spec
+dat.s_v1 <- melt(datacvcv,id.vars = c('block','tone1','vowel1','word', 'subj','toneseq'), measure.vars = c('specTilt_1','specTilt_2','specTilt_3','specTilt_4'))
 dat.ls_v1 <- melt(Ltones_v1,id.vars = c('block','tone1','vowel1','word', 'subj','toneseq'), measure.vars = c('specTilt_1','specTilt_2','specTilt_3','specTilt_4'))
 dat.ms_v1 <- melt(Mtones_v1,id.vars = c('block','tone1','vowel1','word', 'subj','toneseq'), measure.vars = c('specTilt_1','specTilt_2', 'specTilt_3','specTilt_4'))
 dat.hs_v1 <- melt(Htones_v1,id.vars = c('block','tone1','vowel1','word', 'subj','toneseq'), measure.vars = c('specTilt_1','specTilt_2', 'specTilt_3','specTilt_4'))

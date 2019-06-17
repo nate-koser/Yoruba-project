@@ -235,7 +235,7 @@ ggplot(data = datacvcv) +
   labs(x = "syllable 2")
 
 #first syll spectilt over time
-ggplot(data = dat.ls_v1, aes(x = variable, y=value, group = tone1, color = tone1, shape = tone1)) +
+ggplot(data = dat.ls_v1, aes(x = variable, y=value, group = subj, shape = subj)) +
   stat_summary( geom="line", fun.y = mean)+
   ylim (-20,20)+
   stat_summary(data = dat.ms_v1, geom="line", fun.y = mean)+
@@ -249,11 +249,16 @@ ggplot(data = dat.ls_v1, aes(x = variable, y=value, group = tone1, color = tone1
   theme(axis.text.x=element_blank())+
   scale_color_brewer(palette="Set1") +
   theme(legend.position="none")+
-  facet_wrap(vars(subj))+
+  annotate("text", x = .8, y = -1.5, label = "H")+
+  annotate("text", x = .8, y = -9, label = "L")+
+  annotate("text", x = .8, y = -10.5, label = "M")+
+  annotate("text", x = .8, y = 5.5, label = "L")+
+  annotate("text", x = .8, y = 4, label = "M")+
+  annotate("text", x = .8, y = 1.5, label = "H")+
   labs(x = "syllable 1", y = "mean spectral tilt")
 
 #second syll spectilt over time
-ggplot(data = dat.ls_v2, aes(x = variable, y=value, group = tone2, color = tone2, shape=tone2)) +
+ggplot(data = dat.ls_v2, aes(x = variable, y=value, group = subj,  shape=subj)) +
   stat_summary( geom="line", fun.y = mean)+
   ylim (-20,20)+
   stat_summary(data = dat.ms_v2, geom="line", fun.y = mean)+
@@ -266,11 +271,18 @@ ggplot(data = dat.ls_v2, aes(x = variable, y=value, group = tone2, color = tone2
   stat_summary(data = dat.hs_v2, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) +  #with no se
   theme(axis.text.x=element_blank())+
   scale_color_brewer(palette="Set1") +
-  facet_wrap(vars(subj))+
+  #facet_wrap(vars(subj))+
   theme(axis.text.y=element_blank())+
   theme(axis.title.y=element_blank())+
   theme(legend.title=element_blank())+
-  labs(x = "syllable 2", y = "mean spectral tilt")
+  annotate("text", x = .8, y = -4, label = "H")+
+  annotate("text", x = .8, y = -8, label = "L")+
+  annotate("text", x = .8, y = -11, label = "M")+
+  annotate("text", x = .8, y = 5.5, label = "M")+
+  annotate("text", x = .8, y = 3.5, label = "H")+
+  annotate("text", x = .8, y = 2.3, label = "L")+
+  labs(x = "syllable 2")
+
 
 #HNR---------------------------------------------------------------------------------
 #avg HNR by tone
