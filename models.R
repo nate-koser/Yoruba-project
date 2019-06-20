@@ -73,98 +73,66 @@ r.squaredGLMM(tones)
 #final models --------------------------------------------------------------------------------
 
 #duration
-durmod <- lmer(target_voweldur ~ target_tone + (1|word),  data = datana)
+durmod <- lmer(target_voweldur ~ target_tone + (block|word),  data = datana)
 summary(durmod)
+emmeans(durmod, list(pairwise ~ target_tone), adjust = "none")
 r.squaredGLMM(durmod)
 
 #f0
-f0mod <- lmer(avg_f0 ~ target_tone + target_sylons + (1|block) + (1|word), data = datana)
+f0mod <- lmer(avg_f0 ~ target_tone +  target_sylons + (block|word), data = datana)
 summary(f0mod)
 r.squaredGLMM(f0mod)
 
 #HNR
-hnrmod <- lmer(avg_hnr ~ target_tone + target_vowel + (1|block) + (1|word), data = datana)
+hnrmod <- lmer(avg_hnr ~ target_tone + (block|word), data = datana)
 summary(hnrmod)
 r.squaredGLMM(hnrmod)
 emmeans(hnrmod, list(pairwise ~ target_tone), adjust = "none")
 
 #spectral tilt
-specmod <- lmer(avg_spec ~ target_tone + target_vowel + target_sylons + (1|block) + (1|word), data = datana)
+specmod <- lmer(avg_spec ~ target_tone +  (block|word), data = datana)
 summary(specmod)
 r.squaredGLMM(specmod)
 emmeans(specmod, list(pairwise ~ target_tone), adjust = "none")
 
-#f1 minus f0 vowel
-f1f0mod <- lmer(avg_f1minusf0 ~ target_tone +  (1|block) + (1|target_vowel) , data = datana)
-summary(f1f0mod)
-r.squaredGLMM(f1f0mod)
 
-#vowel vs. f1f0
-vowel10mod <- lmer(avg_f1minusf0 ~ target_tone + target_vowel + (1|block), data = datana)
-summary(vowel10mod)
 
 ##slice models------------------------------------------------------------------------
 
-
-#f0 slice L model
-f0sliceL <- lmer(value ~ variable + (1|block), data = dat.lf0)
-summary(f0sliceL)
-r.squaredGLMM(f0sliceL)
-
-#f0 slice M model
-f0sliceM <- lmer(value ~ variable + (1|block) , data = dat.mf0)
-summary(f0sliceM)
-r.squaredGLMM(f0sliceM)
-
-#f0 slice H model
-f0sliceH <- lmer(value ~ variable + (1|block) , data = dat.hf0)
-summary(f0sliceH)
-r.squaredGLMM(f0sliceH)
-
 #hnr slice L model
-hsliceL <- lmer(value ~ variable + (1|block) , data = dat.lh)
+hsliceL <- lmer(value ~ variable + (block|word) , data = dat.lh)
 summary(hsliceL)
 r.squaredGLMM(hsliceL)
+emmeans(hsliceL, list(pairwise ~ variable), adjust = "none")
 
 #hnr slice M model
-hsliceM <- lmer(value ~ variable + (1|block) , data = dat.mh)
+hsliceM <- lmer(value ~ variable + (block|word) , data = dat.mh)
 summary(hsliceM)
 r.squaredGLMM(hsliceM)
+emmeans(hsliceM, list(pairwise ~ variable), adjust = "none")
 
 #hnr slice H model
-hsliceH <- lmer(value ~ variable + (1|block) , data = dat.hh)
+hsliceH <- lmer(value ~ variable + (block|word) , data = dat.hh)
 summary(hsliceH)
 r.squaredGLMM(hsliceH)
+emmeans(hsliceH, list(pairwise ~ variable), adjust = "none")
 
 #spec tilt slice L model
-ssliceL <- lmer(value ~ variable + (1|block) , data = dat.ls)
+ssliceL <- lmer(value ~ variable + (block|word) , data = dat.ls)
 summary(ssliceL)
 r.squaredGLMM(ssliceL)
 
 #spec tilt slice M model
-ssliceM <- lmer(value ~ variable + (1|block) , data = dat.ms)
+ssliceM <- lmer(value ~ variable + (block|word) , data = dat.ms)
 summary(ssliceM)
 r.squaredGLMM(ssliceM)
 
 #spec tilt slice H model
-ssliceH <- lmer(value ~ variable  + (1|block) , data = dat.hs)
+ssliceH <- lmer(value ~ variable  + (block|word) , data = dat.hs)
 summary(ssliceH)
 r.squaredGLMM(ssliceH)
 
-#f1-f0 slice L model
-ffsliceL <- lmer(value ~ variable + (1|block) , data = dat.l10)
-summary(ffsliceL)
-r.squaredGLMM(ffsliceL)
 
-#f1-f0 slice M model
-ffsliceM <- lmer(value ~ variable + (1|block) , data = dat.m10)
-summary(ffsliceM)
-r.squaredGLMM(ffsliceM)
-
-#f1-f0 slice H model
-ffsliceH <- lmer(value ~ variable + (1|block) , data = dat.h10)
-summary(ffsliceH)
-r.squaredGLMM(ffsliceH)
 
 #CVCV------------------------------------------------------------------------------------------
 #spec tilt-----------------------------------------------------------------
@@ -285,13 +253,13 @@ emmeans(seqspec2v2, list(pairwise ~ toneseq), adjust = "none")
 
 #by syllable
 #syll 1
-hnrsyll1 <- lmer(avg_hnr_v1 ~ tone1  + (1|subj) + (block|word)  , data = datacvcv)
+hnrsyll <- lmer(avg_hnr_v1 ~ tone1   + (1|subj) + (block|word)  , data = datacvcv)
 summary(hnrsyll1)
 emmeans(hnrsyll1, list(pairwise ~ tone1), adjust = "none")
 r.squaredGLMM(hnrsyll1)
 
 #syll 2
-hnrsyll2 <- lmer(avg_hnr_v2 ~ tone2  + (1|subj) + (block|word)  , data = datacvcv)
+hnrsyll2 <- lmer(avg_hnr_v2 ~ tone2    (1|subj) + (block|word)  , data = datacvcv)
 summary(hnrsyll2)
 emmeans(hnrsyll2, list(pairwise ~ tone2), adjust = "none")
 r.squaredGLMM(hnrsyll2)
@@ -330,23 +298,21 @@ emmeans(highhnrs2, list(pairwise ~ variable), adjust = "none")
 r.squaredGLMM(highhnrs2)
 
 
-#syll on hnr ----------------------------
-wordhnr <- lmer(avg_word_hnr ~ variable + value + (1|block) + (1|word) , data = dat.syll)
-summary(wordhnr)
-r.squaredGLMM(wordhnr)
-emmeans(highhnrs2, list(pairwise ~ variable), adjust = "none")
-
-#tone seq models ------------------------------------------------
-
-
 #sequence HNR
-seqhnr1 <- lmer(avg_hnr_v1 ~ toneseq + vowel1+ (1|subj) + (1|block), data = datacvcv )
+seqhnr1 <- lmer(avg_hnr_v1 ~ toneseq +  (1|subj) + (block|word), data = datacvcv )
 summary(seqhnr1)
 r.squaredGLMM(seqhnr1)
 emmeans(seqhnr1, list(pairwise ~ toneseq), adjust = "none")
 
-seqhnr2 <- lmer(avg_hnr_v2 ~ toneseq +  vowel2 + (1|subj) + (1|block) , data = datacvcv )
+seqhnr2 <- lmer(avg_hnr_v2 ~ toneseq +   (1|subj) + (1|block) , data = datacvcv )
 summary(seqhnr2)
 r.squaredGLMM(seqhnr2)
 emmeans(seqhnr2, list(pairwise ~ toneseq), adjust = "none")
+
+#position on hnr
+wordhnr <- lmer(avg_word_hnr ~ variable + value + (block|word) + (1|subj) , data = dat.syll)
+summary(wordhnr)
+r.squaredGLMM(wordhnr)
+emmeans(highhnrs2, list(pairwise ~ variable), adjust = "none")
+
 
