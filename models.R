@@ -283,78 +283,58 @@ emmeans(seqspec2v2, list(pairwise ~ toneseq), adjust = "none")
 
 #hnr---------------------------------------------------------------------
 
+#by syllable
+#syll 1
+hnrsyll1 <- lmer(avg_hnr_v1 ~ tone1  + (1|subj) + (block|word)  , data = datacvcv)
+summary(hnrsyll1)
+emmeans(hnrsyll1, list(pairwise ~ tone1), adjust = "none")
+r.squaredGLMM(hnrsyll1)
+
+#syll 2
+hnrsyll2 <- lmer(avg_hnr_v2 ~ tone2  + (1|subj) + (block|word)  , data = datacvcv)
+summary(hnrsyll2)
+emmeans(hnrsyll2, list(pairwise ~ tone2), adjust = "none")
+r.squaredGLMM(hnrsyll2)
+
+#slice models
 #hnr syll 1
-lowhnrs1 <- lmer(value ~ variable  + (1|block)  + (1|subj), data = dat.lh_v1)
+lowhnrs1 <- lmer(value ~ variable  + (block|word)  + (1|subj), data = dat.lh_v1)
 summary(lowhnrs1)
 emmeans(lowhnrs1, list(pairwise ~ variable), adjust = "none")
-midhnrs1 <- lmer(value ~ variable  + (1|block)  + (1|subj), data = dat.mh_v1)
+r.squaredGLMM(lowhnrs1)
+
+midhnrs1 <- lmer(value ~ variable  + (block|word)  + (1|subj), data = dat.mh_v1)
 summary(midhnrs1)
 emmeans(midhnrs1, list(pairwise ~ variable), adjust = "none")
-highhnrs1 <- lmer(value ~ variable  + (1|block) + (1|subj), data = dat.hh_v1)
+r.squaredGLMM(midhnrs1)
+
+highhnrs1 <- lmer(value ~ variable  + (block|word) + (1|subj), data = dat.hh_v1)
 summary(highhnrs1)
 emmeans(highhnrs1, list(pairwise ~ variable), adjust = "none")
+r.squaredGLMM(highhnrs1)
 
 #hnr syll 2
-lowhnrs2 <- lmer(value ~ variable  + (1|block)  + (1|subj), data = dat.lh_v2)
+lowhnrs2 <- lmer(value ~ variable  + (block|word)  + (1|subj), data = dat.lh_v2)
 summary(lowhnrs2)
 emmeans(lowhnrs2, list(pairwise ~ variable), adjust = "none")
-midhnrs2 <- lmer(value ~ variable  + (1|block)  + (1|subj), data = dat.mh_v2)
+r.squaredGLMM(lowhnrs2)
+
+midhnrs2 <- lmer(value ~ variable  + (block|word)  + (1|subj), data = dat.mh_v2)
 summary(midhnrs2)
 emmeans(midhnrs2, list(pairwise ~ variable), adjust = "none")
-highhnrs2 <- lmer(value ~ variable  + (1|block) + (1|subj), data = dat.hh_v2)
+r.squaredGLMM(midhnrs2)
+
+highhnrs2 <- lmer(value ~ variable  + (block|word) + (1|subj), data = dat.hh_v2)
 summary(highhnrs2)
 emmeans(highhnrs2, list(pairwise ~ variable), adjust = "none")
-
-#hnr syll 1  s1
-lowhnrs1s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.lh_v11)
-summary(lowhnrs1s1)
-emmeans(lowhnrs1s1, list(pairwise ~ variable), adjust = "none")
-midhnrs1s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.mh_v11)
-summary(midhnrs1s1)
-emmeans(midhnrs1s1, list(pairwise ~ variable), adjust = "none")
-highhnrs1s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.hh_v11)
-summary(highhnrs1s1)
-emmeans(highhnrs1s1, list(pairwise ~ variable), adjust = "none")
-
-#hnr syll 2 s1
-lowhnr2s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.lh_v21)
-summary(lowhnr2s1)
-emmeans(lowhnr2s1, list(pairwise ~ variable), adjust = "none")
-midhnrs2s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.mh_v21)
-summary(midhnrs2s1)
-emmeans(midhnrs2s1, list(pairwise ~ variable), adjust = "none")
-highhnrs2s1 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.hh_v21)
-summary(highhnrs2s1)
-emmeans(highhnrs2s1, list(pairwise ~ variable), adjust = "none")
-
-#hnr syll1 spk 2
-lowhnrs1s2 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.lh_v12)
-summary(lowhnrs1s2)
-emmeans(lowhnrs1s2, list(pairwise ~ variable), adjust = "none")
-midhnrs1s2 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.mh_v12)
-summary(midhnrs1s2)
-emmeans(midhnrs1s2, list(pairwise ~ variable), adjust = "none")
-highhnrs1s2 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.hh_v12)
-summary(highhnrs1s2)
-emmeans(highhnrs1s2, list(pairwise ~ variable), adjust = "none")
-
-#hnr syll 2 spk 2
-lowhnr2s2 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.lh_v22)
-summary(lowhnr2s2)
-emmeans(lowhnr2s2, list(pairwise ~ variable), adjust = "none")
-midhnrs2s2 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.mh_v22)
-summary(midhnrs2s2)
-emmeans(midhnrs2s2, list(pairwise ~ variable), adjust = "none")
-highhnrs2s2 <- lmer(value ~ variable  + (1|block) + (1|word), data = dat.hh_v22)
-summary(highhnrs2s2)
-emmeans(highhnrs2s2, list(pairwise ~ variable), adjust = "none")
+r.squaredGLMM(highhnrs2)
 
 
 #syll on hnr ----------------------------
 wordhnr <- lmer(avg_word_hnr ~ variable + value + (1|block) + (1|word) , data = dat.syll)
 summary(wordhnr)
 r.squaredGLMM(wordhnr)
-emmeans(highhnrs2s2, list(pairwise ~ variable), adjust = "none")
+emmeans(highhnrs2, list(pairwise ~ variable), adjust = "none")
 
 #tone seq models ------------------------------------------------
 
