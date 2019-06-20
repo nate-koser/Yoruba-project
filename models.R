@@ -121,17 +121,19 @@ emmeans(hsliceH, list(pairwise ~ variable), adjust = "none")
 ssliceL <- lmer(value ~ variable + (block|word) , data = dat.ls)
 summary(ssliceL)
 r.squaredGLMM(ssliceL)
+emmeans(ssliceL, list(pairwise ~ variable), adjust = "none")
 
 #spec tilt slice M model
 ssliceM <- lmer(value ~ variable + (block|word) , data = dat.ms)
 summary(ssliceM)
 r.squaredGLMM(ssliceM)
+emmeans(ssliceM, list(pairwise ~ variable), adjust = "none")
 
 #spec tilt slice H model
 ssliceH <- lmer(value ~ variable  + (block|word) , data = dat.hs)
 summary(ssliceH)
 r.squaredGLMM(ssliceH)
-
+emmeans(ssliceH, list(pairwise ~ variable), adjust = "none")
 
 
 #CVCV------------------------------------------------------------------------------------------

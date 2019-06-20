@@ -3,26 +3,29 @@ source("datatidy.R")
 #plots------------------------------------------------------------------------------------------
 
 #plot avg spec + hnr
-ggplot(datana) +
-  geom_point(mapping = aes(x = avg_spec, y = avg_hnr, color = target_tone, shape = target_tone), na.rm = TRUE) +
+ggplot(datana, mapping = aes(x = avg_spec, y = avg_hnr, color = target_tone, shape = target_tone), na.rm = TRUE) +
+  geom_point() +
   labs(x = "Average spectral tilt", y = "Average HNR", key = "category") +
   theme(legend.title=element_blank()) +
+  stat_summary(data = datana, fun.data=mean_cl_normal) +
+  geom_smooth(method ="lm", se = T, fullrange = F, level = .75)+
   scale_color_brewer(palette="Set1")
 
 #plot avg spec + hnr v1
-ggplot(datacvcv) +
-  geom_point(mapping = aes(x = avg_spec_v1, y = avg_hnr_v1, color = tone1, shape = tone1), na.rm = TRUE) +
-  labs(x = "average spectral tilt", y = "average HNR", key = "category") +
+ggplot(datacvcv, mapping = aes(x = avg_spec_v1, y = avg_hnr_v1, color = tone1, shape = tone1)) +
+  geom_point( na.rm = TRUE) +
   theme(legend.title=element_blank()) +
+  stat_summary(fun.data=mean_cl_normal) +
+  geom_smooth(method ="lm", se = T, fullrange = F, level = .95)+
   geom_point(mapping = aes(x = avg_spec_v2, y = avg_hnr_v2, color = tone2, shape = tone2), na.rm = TRUE) +
   theme(legend.title=element_blank()) +
+  labs(x = "average spectral tilt", y = "average HNR", key = "category") +
   scale_color_brewer(palette="Set1")
 
 
-
 #plot avg spec + hnr v2 slice 4
-ggplot(datacvcv) +
-  geom_point(mapping = aes(x = specTilt_4, y = hnr_4, color = tone1, shape = tone1), na.rm = TRUE) +
+ggplot(datacvcv, mapping = aes(x = specTilt_4, y = hnr_4, color = tone1, shape = tone1)) +
+  geom_point( na.rm = TRUE) +
   geom_point(mapping = aes(x = specTilt_4_v2, y = hnr_4_v2, color = tone2, shape = tone2), na.rm = TRUE, show.legend = FALSE) +
    labs(x = "Average spectral tilt", y = "Average HNR", key = "category") +
   theme(legend.title=element_blank()) +
@@ -32,6 +35,13 @@ ggplot(datacvcv) +
 ggplot(data = datana) +
   geom_boxplot(mapping = aes(x = target_tone, y = avg_f0, fill = target_tone), na.rm = TRUE) +
   ylim (75,200)
+
+#avg f0 boxplot
+ggplot(data = datana) +
+  geom_boxplot(mapping = aes(x = target_tone, y = avg_hnr, fill = target_tone), na.rm = TRUE) +
+  scale_x_discrete(limits=c("L","M","H"))
+ # ylim (75,200)
+
 
 
 
@@ -63,9 +73,6 @@ ggplot(datana) +
   geom_boxplot(aes(x = target_vowel, y = avg_spec, fill = target_vowel), na.rm = T, show.legend = F)
 
 
-
-
-
 #line/point plot mean f0 over "time" i.e. f0 slice
 ggplot(data = datf0plot, aes(x = variable, y=value, group = target_tone, color = target_tone)) +
   stat_summary( geom="line", fun.y = mean)+
@@ -81,6 +88,41 @@ ggplot(data = datf0plot, aes(x = variable, y=value, group = target_tone, color =
   scale_color_brewer(palette="Set1") +
   theme(legend.title=element_blank())+
   labs(x = "time", y = "mean F0")
+
+#line/point plot mean hnr over "time" i.e.  slice
+ggplot(data = dathplot, aes(x = variable, y=value, group = target_tone, color = target_tone)) +
+  stat_summary( geom="line", fun.y = mean)+
+  stat_summary(data = dathplotm, geom="line", fun.y = mean)+
+  stat_summary(data = dathploth, geom="line", fun.y = mean)+
+  stat_summary(data = dathplot, geom="point", fun.y = mean)+
+  stat_summary(data = dathplotm, geom="point", fun.y = mean)+
+  stat_summary(data = dathploth, geom="point", fun.y = mean)+
+  stat_summary(data = dathplot, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) + #can also
+  stat_summary(data = dathplotm, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #use errorbar
+  stat_summary(data = dathploth, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #with no se
+  theme(axis.text.x=element_blank())+
+  scale_color_brewer(palette="Set1") +
+  theme(legend.title=element_blank())+
+  labs(x = "time", y = "mean HNR") +
+  ylim(0,25)
+
+#line/point plot mean spectilt over "time" i.e.  slice
+ggplot(data = datsplot, aes(x = variable, y=value, group = target_tone, color = target_tone)) +
+  stat_summary( geom="line", fun.y = mean)+
+  stat_summary(data = datsplotm, geom="line", fun.y = mean)+
+  stat_summary(data = datsploth, geom="line", fun.y = mean)+
+  stat_summary(data = datsplot, geom="point", fun.y = mean)+
+  stat_summary(data = datsplotm, geom="point", fun.y = mean)+
+  stat_summary(data = datsploth, geom="point", fun.y = mean)+
+  stat_summary(data = datsplot, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) + #can also
+  stat_summary(data = datsplotm, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #use errorbar
+  stat_summary(data = datsploth, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #with no se
+  theme(axis.text.x=element_blank())+
+  scale_color_brewer(palette="Set1") +
+  theme(legend.title=element_blank())+
+  labs(x = "time", y = "mean spectral tilt") +
+  ylim(-10,20)
+
 
 #CVCV--------------------------------------------------------------------------------------------------
 

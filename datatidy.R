@@ -110,11 +110,18 @@ dat.m10 <- melt(Mtones,id.vars = 'block', measure.vars = c('f1f01', 'f1f02', 'f1
 dat.h10 <- melt(Htones,id.vars = 'block', measure.vars = c('f1f01', 'f1f02', 'f1f03', 'f1f04'))
 
 
-#rearrange data to plot avg f0 over time (probably a better way to do this?)
+#rearrange data to plot avg measures over time (probably a better way to do this?)
 datf0plot <- melt(Ltones,id.vars = 'target_tone', measure.vars = c('f0_1','f0_2','f0_3','f0_4'))
 datf0plotm <- melt(Mtones,id.vars = 'target_tone', measure.vars = c('f0_1','f0_2','f0_3','f0_4'))
 datf0ploth <- melt(Htones,id.vars = 'target_tone', measure.vars = c('f0_1','f0_2','f0_3','f0_4'))
 
+dathplot <- melt(Ltones,id.vars = 'target_tone', measure.vars = c('hnr_1','hnr_2','hnr_3','hnr_4'))
+dathplotm <- melt(Mtones,id.vars = 'target_tone', measure.vars = c('hnr_1','hnr_2','hnr_3','hnr_4'))
+dathploth <- melt(Htones,id.vars = 'target_tone', measure.vars = c('hnr_1','hnr_2','hnr_3','hnr_4'))
+
+datsplot <- melt(Ltones,id.vars = 'target_tone', measure.vars = c('specTilt_1','specTilt_2','specTilt_3','specTilt_4'))
+datsplotm <- melt(Mtones,id.vars = 'target_tone', measure.vars = c('specTilt_1','specTilt_2','specTilt_3','specTilt_4'))
+datsploth <- melt(Htones,id.vars = 'target_tone', measure.vars = c('specTilt_1','specTilt_2','specTilt_3','specTilt_4'))
 #sanity checks
 #datasane <- datana %>%
   #filter(., target_vowel == "E")
