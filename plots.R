@@ -169,16 +169,16 @@ ggplot(data = datf0plot_v1, aes(x = variable, y=value, group = toneseq, color = 
   scale_color_brewer(palette="Set1") +
   theme(legend.position="none")+
   labs(x = "time", y = "mean F0")+
-  annotate("text", x = 4.1, y = 177, label = "HL")+
-  annotate("text", x = 4.1, y = 173, label = "HH")+
-  annotate("text", x = 4.1, y = 164, label = "HM")+
-  annotate("text", x = 4.1, y = 150, label = "MH")+
-  annotate("text", x = 4.1, y = 148, label = "ML")+
-  annotate("text", x = 4.1, y = 146, label = "MM")+
-  annotate("text", x = 4.1, y = 112, label = "LM")+
-  annotate("text", x = 4.1, y = 107, label = "LL")+
-  annotate("text", x = 4.1, y = 104, label = "LH")+
-  annotate("text", x = 0.7, y = 105, label = "syllable 1")
+  annotate("text", x = 4.2, y = 177, label = "HL")+
+  annotate("text", x = 4.2, y = 173, label = "HH")+
+  annotate("text", x = 4.2, y = 164, label = "HM")+
+  annotate("text", x = 4.2, y = 150.7, label = "MH")+
+  annotate("text", x = 4.2, y = 148, label = "ML")+
+  annotate("text", x = 4.2, y = 145.2, label = "MM")+
+  annotate("text", x = 4.2, y = 112, label = "LM")+
+  annotate("text", x = 4.2, y = 107, label = "LL")+
+  annotate("text", x = 4.2, y = 104, label = "LH")+
+  annotate("text", x = 0.8, y = 105, label = "syllable 1")
 
 #second syll f0 over time
 ggplot(data = datf0plot_v2, aes(x = variable, y=value, group = toneseq, color = tone2)) +
@@ -191,32 +191,38 @@ ggplot(data = datf0plot_v2, aes(x = variable, y=value, group = toneseq, color = 
   stat_summary(data = datf0plot_v2, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) + #can also
   stat_summary(data = datf0plotm_v2, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) +  #use errorbar
   stat_summary(data = datf0ploth_v2, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) +  #with no se
-  theme(axis.text.y=element_blank())+
+  #theme(axis.text.y=element_blank())+
   theme(axis.text.x=element_blank())+
   theme(axis.title.y = element_blank()) +
   scale_color_brewer(palette="Set1") +
   theme(legend.title=element_blank())+
   labs(x = "time")+
-  annotate("text", x = 4.1, y = 174.5, label = "MH")+
-  annotate("text", x = 4.1, y = 172, label = "LH")+
-  annotate("text", x = 4.1, y = 169.5, label = "HH")+
-  annotate("text", x = 4.1, y = 147.5, label = "MM")+
-  annotate("text", x = 4.1, y = 145, label = "HM")+
-  annotate("text", x = 4.1, y = 142, label = "LM")+
-  annotate("text", x = 4.1, y = 111, label = "HL")+
-  annotate("text", x = 4.1, y = 104, label = "ML")+
-  annotate("text", x = 4.1, y = 102, label = "LL")+
-  annotate("text", x = 0.7, y = 105, label = "syllable 2")
+  annotate("text", x = 4.2, y = 175, label = "MH")+
+  annotate("text", x = 4.2, y = 172, label = "HH")+
+  annotate("text", x = 4.2, y = 169, label = "LH")+
+  annotate("text", x = 4.2, y = 148, label = "MM")+
+  annotate("text", x = 4.2, y = 145, label = "HM")+
+  annotate("text", x = 4.2, y = 141, label = "LM")+
+  annotate("text", x = 4.2, y = 111, label = "HL")+
+  annotate("text", x = 4.2, y = 104, label = "ML")+
+  annotate("text", x = 4.2, y = 101, label = "LL")+
+  annotate("text", x = 0.8, y = 100, label = "syllable 2")
 
 #LH HL f0
-ggplot(data = datf0plot_v2HL, aes(x = variable, y=value, group = tone2, color = tone2)) +
+ggplot(data = datf0plot_v2HL, aes(x = variable, y=value, group = toneseq)) +
   stat_summary( geom="line", fun.y = mean)+
   stat_summary(data = datf0ploth_v2LH, geom="line", fun.y = mean)+
   stat_summary(data = datf0plot_v2HL, geom="point", fun.y = mean)+
   stat_summary(data = datf0ploth_v2LH, geom="point", fun.y = mean)+
+  stat_summary(data = datf0plot_v2ML, geom="point", fun.y = mean)+
+  stat_summary(data = datf0ploth_v2LM, geom="point", fun.y = mean)+
+  stat_summary(data = datf0plot_v2ML, geom="line", fun.y = mean)+
+  stat_summary(data = datf0ploth_v2LM, geom="line", fun.y = mean)+
   stat_summary(data = datf0plot_v2HL, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) + #can also
-  stat_summary(data = datf0ploth_v2LH, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +  #with no se
-  facet_wrap(vars(toneseq))+
+  stat_summary(data = datf0ploth_v2LH, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +
+  stat_summary(data = datf0plot_v2ML, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) + #can also
+  stat_summary(data = datf0ploth_v2LM, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95), geom = "smooth", se = T) +#with no se
+  facet_wrap(vars(toneseq), labeller = as_labeller(toneseq_names))+
   theme(axis.text.x=element_blank())+
   scale_color_brewer(palette="Set1") +
   theme(legend.title=element_blank())+

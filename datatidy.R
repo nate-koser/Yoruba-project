@@ -306,9 +306,18 @@ datf0plot_v2 <- melt(Ltones_v2,id.vars = c('subj','tone2','toneseq'), measure.va
 datf0plotm_v2 <- melt(Mtones_v2,id.vars = c('subj','tone2','toneseq'), measure.vars = c('f0_1_v2','f0_2_v2','f0_3_v2','f0_4_v2'))
 datf0ploth_v2 <- melt(Htones_v2,id.vars = c('subj','tone2','toneseq'), measure.vars = c('f0_1_v2','f0_2_v2','f0_3_v2','f0_4_v2'))
 
+#to make facet labels more intuitive
+toneseq_names <- c(
+  `HL` = "HL-final L",
+  `LH` = "LH-final H",
+  `ML` = "ML-final L",
+  `LM` = "LM-initial L"
+)
 
 datf0plot_v2HL <- filter(datf0plot_v2, toneseq == "HL")
 datf0ploth_v2LH <- filter(datf0ploth_v2, toneseq == "LH")
+datf0plot_v2ML <- filter(datf0plot_v2, toneseq == "ML")
+datf0ploth_v2LM <- filter(datf0plot_v1, toneseq == "LM")
 
 #create "syllable position" variable
 dat.syll <- melt(datacvcv,id.vars = c('avg_word_hnr','avg_f0_v1','avg_f0_v2','avg_word_f0', 'block','tone1', 'tone2', 'word', 'subj','toneseq'), measure.vars = c('vowel1','vowel2'))
