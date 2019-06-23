@@ -152,7 +152,7 @@ emmeans(specsyll2s1, list(pairwise ~ tone2), adjust = "none")
 r.squaredGLMM(specsyll2s1)
 
 #syll and spec s2
-specsyll1s2 <- lmer(avg_spec_v1 ~ tone1  +  (block|word)  , data = datas2)
+specsyll1s2 <- lmer(avg_spec_v1 ~ tone1 + (block|word), data = datas2)
 summary(specsyll1s2)
 emmeans(specsyll1s2, list(pairwise ~ tone1), adjust = "none")
 r.squaredGLMM(specsyll1s2)
@@ -250,18 +250,17 @@ summary(seqspec2v2)
 r.squaredGLMM(seqspec2v2)
 emmeans(seqspec2v2, list(pairwise ~ toneseq), adjust = "none")
 
-
 #hnr---------------------------------------------------------------------
 
 #by syllable
 #syll 1
-hnrsyll <- lmer(avg_hnr_v1 ~ tone1   + (1|subj) + (block|word)  , data = datacvcv)
+hnrsyll1 <- lmer(avg_hnr_v1 ~ tone1   + (1|subj) + (block|word)  , data = datacvcv)
 summary(hnrsyll1)
 emmeans(hnrsyll1, list(pairwise ~ tone1), adjust = "none")
 r.squaredGLMM(hnrsyll1)
 
 #syll 2
-hnrsyll2 <- lmer(avg_hnr_v2 ~ tone2    (1|subj) + (block|word)  , data = datacvcv)
+hnrsyll2 <- lmer(avg_hnr_v2 ~ tone2 +   (1|subj) + (block|word)  , data = datacvcv)
 summary(hnrsyll2)
 emmeans(hnrsyll2, list(pairwise ~ tone2), adjust = "none")
 r.squaredGLMM(hnrsyll2)
@@ -306,7 +305,7 @@ summary(seqhnr1)
 r.squaredGLMM(seqhnr1)
 emmeans(seqhnr1, list(pairwise ~ toneseq), adjust = "none")
 
-seqhnr2 <- lmer(avg_hnr_v2 ~ toneseq +   (1|subj) + (1|block) , data = datacvcv )
+seqhnr2 <- lmer(avg_hnr_v2 ~ toneseq +   (1|subj) + (block|word) , data = datacvcv )
 summary(seqhnr2)
 r.squaredGLMM(seqhnr2)
 emmeans(seqhnr2, list(pairwise ~ toneseq), adjust = "none")
@@ -317,4 +316,9 @@ summary(wordhnr)
 r.squaredGLMM(wordhnr)
 emmeans(highhnrs2, list(pairwise ~ variable), adjust = "none")
 
+
+wordhnr <- lmer(avg_hnr_v1 ~ variable + toneseq +  (block|word) + (1|subj) , data = dat.lm)
+summary(wordhnr)
+r.squaredGLMM(wordhnr)
+emmeans(highhnrs2, list(pairwise ~ variable), adjust = "none")
 

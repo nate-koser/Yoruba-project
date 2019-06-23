@@ -317,10 +317,19 @@ toneseq_names <- c(
 datf0plot_v2HL <- filter(datf0plot_v2, toneseq == "HL")
 datf0ploth_v2LH <- filter(datf0ploth_v2, toneseq == "LH")
 datf0plot_v2ML <- filter(datf0plot_v2, toneseq == "ML")
-datf0ploth_v2LM <- filter(datf0plot_v1, toneseq == "LM")
+lmml <- datacvcv %>%
+  filter(., toneseq != "HH",
+            toneseq != "HM",
+            toneseq != "HL",
+            toneseq != "MH",
+            toneseq != "MM",
+            toneseq != "LH",
+            toneseq != "LL")
 
 #create "syllable position" variable
 dat.syll <- melt(datacvcv,id.vars = c('avg_word_hnr','avg_f0_v1','avg_f0_v2','avg_word_f0', 'block','tone1', 'tone2', 'word', 'subj','toneseq'), measure.vars = c('vowel1','vowel2'))
+dat.lm <- melt(lmml,id.vars = c('avg_word_hnr','avg_hnr_v1','avg_hnr_v2','avg_word_f0', 'block','tone1', 'tone2', 'word', 'subj','toneseq'), measure.vars = c('vowel1','vowel2'))
+
 
 #frame for avg spec by tone
 dat.spec <- gather(datacvcv, 'tone1', 'tone2', key = position, value = tone)

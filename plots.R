@@ -169,16 +169,17 @@ ggplot(data = datf0plot_v1, aes(x = variable, y=value, group = toneseq, color = 
   scale_color_brewer(palette="Set1") +
   theme(legend.position="none")+
   labs(x = "time", y = "mean F0")+
-  annotate("text", x = 4.2, y = 177, label = "HL")+
-  annotate("text", x = 4.2, y = 173, label = "HH")+
-  annotate("text", x = 4.2, y = 164, label = "HM")+
+  annotate("text", x = 4.2, y = 168, label = "HL")+
+  annotate("text", x = 4.2, y = 164, label = "HH")+
+  annotate("text", x = 4.2, y = 158, label = "HM")+
   annotate("text", x = 4.2, y = 150.7, label = "MH")+
-  annotate("text", x = 4.2, y = 148, label = "ML")+
-  annotate("text", x = 4.2, y = 145.2, label = "MM")+
-  annotate("text", x = 4.2, y = 112, label = "LM")+
+  annotate("text", x = 4.2, y = 147, label = "ML")+
+  annotate("text", x = 4.2, y = 143, label = "MM")+
+  annotate("text", x = 4.2, y = 114, label = "LM")+
   annotate("text", x = 4.2, y = 107, label = "LL")+
-  annotate("text", x = 4.2, y = 104, label = "LH")+
-  annotate("text", x = 0.8, y = 105, label = "syllable 1")
+  annotate("text", x = 4.2, y = 102, label = "LH")+
+  annotate("text", x = 0.8, y = 105, label = "syllable 1")+
+  ylim(90,190)
 
 #second syll f0 over time
 ggplot(data = datf0plot_v2, aes(x = variable, y=value, group = toneseq, color = tone2)) +
@@ -197,16 +198,18 @@ ggplot(data = datf0plot_v2, aes(x = variable, y=value, group = toneseq, color = 
   scale_color_brewer(palette="Set1") +
   theme(legend.title=element_blank())+
   labs(x = "time")+
-  annotate("text", x = 4.2, y = 175, label = "MH")+
-  annotate("text", x = 4.2, y = 172, label = "HH")+
-  annotate("text", x = 4.2, y = 169, label = "LH")+
-  annotate("text", x = 4.2, y = 148, label = "MM")+
+  annotate("text", x = 4.2, y = 165, label = "LH")+
+  annotate("text", x = 4.2, y = 161, label = "HH")+
+  annotate("text", x = 4.2, y = 157, label = "MH")+
+  annotate("text", x = 4.2, y = 149, label = "MM")+
   annotate("text", x = 4.2, y = 145, label = "HM")+
   annotate("text", x = 4.2, y = 141, label = "LM")+
   annotate("text", x = 4.2, y = 111, label = "HL")+
   annotate("text", x = 4.2, y = 104, label = "ML")+
-  annotate("text", x = 4.2, y = 101, label = "LL")+
-  annotate("text", x = 0.8, y = 100, label = "syllable 2")
+  annotate("text", x = 4.2, y = 99, label = "LL")+
+  annotate("text", x = 0.8, y = 100, label = "syllable 2")+
+  ylim(90,190)
+
 
 #LH HL f0
 ggplot(data = datf0plot_v2HL, aes(x = variable, y=value, group = toneseq)) +
@@ -397,3 +400,30 @@ ggplot(data = dat.lh_v2, aes(x = variable, y=value, group = tone2, color = tone2
   theme(axis.title.y=element_blank())+
   theme(legend.title=element_blank())+
   labs(x = "syllable 2", y = "mean HNR")
+
+
+#first syll f0 over time
+ggplot(data = dathplot_v1, aes(x = variable, y=value, group = toneseq, color = tone1)) +
+  stat_summary( geom="line", fun.y = mean)+
+  stat_summary(data = dathplotm_v1, geom="line", fun.y = mean)+
+  stat_summary(data = dathploth_v1, geom="line", fun.y = mean)+
+  stat_summary(data = dathplot_v1, geom="point", fun.y = mean)+
+  stat_summary(data = dathplotm_v1, geom="point", fun.y = mean)+
+  stat_summary(data = dathploth_v1, geom="point", fun.y = mean)+
+  stat_summary(data = dathplot_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) + #can also
+  stat_summary(data = dathplotm_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) +  # , geom = "smooth", se = Tuse errorbar
+  stat_summary(data = dathploth_v1, fun.data=mean_cl_normal, fun.args=list(conf.int=0.95)) +  #with no se
+  theme(axis.text.x=element_blank())+
+  scale_color_brewer(palette="Set1") +
+  theme(legend.position="none")+
+  labs(x = "time", y = "mean F0")+
+  annotate("text", x = 4.2, y = 168, label = "HL")+
+  annotate("text", x = 4.2, y = 164, label = "HH")+
+  annotate("text", x = 4.2, y = 158, label = "HM")+
+  annotate("text", x = 4.2, y = 150.7, label = "MH")+
+  annotate("text", x = 4.2, y = 147, label = "ML")+
+  annotate("text", x = 4.2, y = 143, label = "MM")+
+  annotate("text", x = 4.2, y = 114, label = "LM")+
+  annotate("text", x = 4.2, y = 107, label = "LL")+
+  annotate("text", x = 4.2, y = 102, label = "LH")+
+  annotate("text", x = 0.8, y = 105, label = "syllable 1")
